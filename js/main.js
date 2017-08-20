@@ -131,7 +131,7 @@ var checkIp = function (ip, callback) {
         return response.json()
     }).then(function (json) {
         if(json.status === 'ENABLED'){
-            document.proxyline = 'green'
+            document.proxyline = '#00e600'
         }
         console.log('<checkIp>:result', json)
         if (Cookies.get('code') != undefined) {

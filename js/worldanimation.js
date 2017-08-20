@@ -201,7 +201,7 @@ d3.json("world-110m.json", function (error, world) {
         var duration = 40 * distance
         svg.append('path')
             .attr("d", bezierLine(trayectory))
-            .attr("stroke", 'blue')
+            .attr("stroke", document.proxyline)
             .attr("stroke-width", stroke_width)
             .attr("fill", "none")
             .attr("stroke-dasharray", "0,1")
