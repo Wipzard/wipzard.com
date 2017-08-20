@@ -1,0 +1,93 @@
+body {
+    background-color: #efefef;
+    color: #8e8e8e;
+}
+
+.nav-logo a {
+    font-family: 'Fredoka One', cursive;    
+    color: #fdce45;
+    font-size: 3em;
+}
+td {
+    font-size: 3em;    
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+
+.activationlefttable {
+    font-size: 1.6em;
+    text-align: right;
+    padding-left: 20px;        
+    padding-right: 20px;        
+}
+.activationrighttable {
+    font-size: 1.5em;
+    text-align: left;
+    padding-right: 20px;   
+    width: 20%;  
+}
+
+.lefttable {
+    font-size: 2em;
+    text-align: right;
+    padding-left: 20px;        
+    padding-right: 20px;        
+}
+
+.righttable {
+    font-size: 2em;
+    width: 60%;
+    text-align: left;
+    padding-left: 20px;        
+    padding-right: 20px;     
+}
+
+.spin {
+    width: 32px;
+}
+
+.ipactivation {
+    width: 160px; 
+}
+
+.green {
+    color: #00e600;
+}
+
+.smaller {
+    font-size: 1.2em;
+}
+
+.passcode {
+    font-size: 4em;
+}
+
+.email {
+    font-size: 1.5em;
+}
+
+.getnewone {
+    color: #fdce45;
+    cursor: pointer;
+}
+
+.getnewone:hover {
+    color: #fdce45;
+    cursor: pointer;
+}
+
+.red {
+    color: #ff3636;
+}
+
+.big {
+    font-size: 0.4em;
+}
+
+.enabler {
+    margin-top: -7px;
+}

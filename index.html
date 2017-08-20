@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <!-- <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NG5H8HH');
+  </script> -->
+
+  <title>Put.io is your digital stash</title>
+
+  <meta name="description" content="The cloud storage service with a certain gravity">
+  <meta name="author" content="devs@put.io">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Put.io" />
+  <meta property="og:description" content="The cloud storage service with a certain gravity" />
+  <meta property="og:url" content="http://put.io" />
+  <meta property="og:image" content="/landing/images/og.png" />
+  <meta property="og:site_name" content="Put.io" />
+  <meta property="fb:admins" content="501671656,526772685,501581847" />
+  <meta name="f18dc48e77219ee4edb4ef5e0e55372485712a41" content="944bcd6eac74f06f8273bfa18c6213b44318b731" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/landing/images/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/landing/images/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/landing/images/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/landing/images/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/landing/images/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/landing/images/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/landing/images/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/landing/images/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/landing/images/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/landing/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/landing/images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/landing/images/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/landing/images/favicon-128.png" sizes="128x128" />
+  <meta name="msapplication-TileColor" content="#FFC40D" />
+  <meta name="msapplication-TileImage" content="/landing/images/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/landing/images/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/landing/images/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/landing/images/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/landing/images/mstile-310x310.png" />
+  <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
+  <link href="/css/font-awesome.css" rel="stylesheet">
+  <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/local.css" rel="stylesheet">
+</head>
+<style>
+  .graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: .5px;
+    stroke-opacity: .5;
+  }
+
+  .land {
+    fill: #cccccc;
+  }
+
+  .boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: .5px;
+  }
+
+  .globe {
+    fill: black;
+    fill-opacity: 1;
+    stroke: #111;
+    stroke-width: 1px;
+  }
+
+  #first_layer path {
+    stroke: #333;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
+
+
+<style>
+  @media (max-width: 768px) {
+    .nav-logo {
+      display: none!important;
+    }
+  }
+</style>
+
+
+<body onhashchange="location.reload()">
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NG5H8HH" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <header>
+
+    <nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="nav-logo">
+              <a href="/">
+                wipzard
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <a id="manage" href="/#manage" onclick="location.reload()" class="btn btn-yellow" style="float:right;display:none;margin-top: 20px;">MANAGE</a>
+              
+
+            <table id="entercode" class="vcenter" style="display: none;">
+              <tr id="activationcodeinput" style="">
+                <td class="activationlefttable">enter activation code:</td>
+                <td class="activationrighttable"><input id="codeinput" maxlength="6" size="8"></input>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <section id="" class="hero">
+      <div class="container">
+
+        <table id="paymentinfo" style="width:100%; display: none;">
+          <tr>
+            <td class="lefttable">Payment ID</td>
+            <td id="tx" class="righttable"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr>
+            <td class="lefttable">Item Name</td>
+            <td id="item_name" class="righttable"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr>
+            <td class="lefttable">Item ID</td>
+            <td id="item_number" class="righttable"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr>
+            <td class="lefttable">Amount</td>
+            <td id="mc_gross" class="righttable"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr>
+            <td class="lefttable">Status</td>
+            <td id="payment_status" class="righttable"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr>
+            <td class="lefttable">Email</td>
+            <td id="payer_email" class="righttable email"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+        </table>
+
+        <table id="ipinfo" style="width:100%;margin-top:20px;">
+          <tr id="activationcode" style="display: none;">
+            <td class="lefttable">Your
+              <u>activation code</u> is</td>
+            <td id="passcode" class="righttable passcode"><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr id="activationexpire" style="display: none;">
+            <td id="daysleftleft" class="lefttable">it will expire in</td>
+            <td id="daysleft" class="righttable" style=""><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr id="service">
+            <td id="statusmessage" class="lefttable">Service</td>
+            <td id="status" class="righttable "><img class="ipactivation" src="/images/30.gif" /></td>
+          </tr>
+          <tr id="forip">
+            <td class="lefttable">for IP</td>
+            <td id="address" class="righttable "><img class="spin" src="/images/spin.gif" /></td>
+          </tr>
+          <tr id="txhelp" style="display:none;">
+            <td id="" style="" class="lefttable">Taking too long?</td>
+            <td id="" class="righttable" style="">Contact <a class="getnewone" href="mailto:help@wipzard.com">help@wipzard.com</a></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="main" class="hero" style="display: none;">
+      <div class="container">
+        <!-- <div class="row">
+          <div class="col-xs-12 text-center">
+            <h3>
+              "Dream with an unblocked world"
+            </h3>
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <svg id='worldmap' viewBox="0 0 910 480" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="hero-cta">
+              <h2 id="slogan">
+              </h2>
+
+              <a id="calltoaction" href="/#pricing" onclick="location.reload()" class="btn btn-yellow">
+              
+            </a>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="plans" style="display: none;">
+      <div class="container" style="display: none;">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="plan-period-selector">
+              <span id="period-switch-monthly">
+                    Paypal
+                  </span>
+
+              <div class="switch">
+                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                <label for="cmn-toggle-1"></label>
+              </div>
+
+              <span id="period-switch-annually">
+                    Bitcoin
+                  </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 id="try-plan-item-header" class="page-title" style="margin-bottom: 30px;">
+      </h3>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <div class="plan-item plan-item-small">
+              <div class="plan-item-price">
+                <h4 id="try-plan-item-price">
+                </h4>
+                <span id="try-plan-item-description" class="period">
+                </span>
+              </div>
+              <div class="plan-item-select" id="try-plan-item-button" style="margin-bottom: 12px;">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <hr style="width: 50%; border-color: #484848">
+      <br>
+
+      <h3 class="page-title">
+        If you like it, get a plan:
+      </h3>
+
+      <div class="container">
+        <div id="plans" class="row">
+          <div class="col-md-2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="plan_template" style="display: none;">
+      <div class="col-md-4">
+        <div>
+          <div class="plan-item">
+            <div id="planNUM-title" class="plan-item-storage">
+            </div>
+            <div id="planNUM-description" class="plan-item-details">
+            </div>
+            <div class="plan-item-price price-month">
+              <h4 id="planNUM-price">
+              </h4>
+              <span id="planNUM-period" class="period">
+                </span>
+              <span id="planNUM-saving" class="saving">
+                </span>
+            </div>
+            <div id="planNUM-paypal" class="plan-item-select">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div>
+      <div id="setup_template" style="display: none">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="app-item">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-4">
+                  <div id="setupNUM-image" class="app-img">
+                  </div>
+                </div>
+                <div class="col-xs-8">
+                  <div class="app-text">
+                    <h5 id="setupNUM-title">
+                    </h5>
+                    <p id="setupNUM-description">
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="setup" class="apps" style="display:none;">
+        <h3>
+          Setup Instructions
+        </h3>
+
+        <div class="container">
+          <div id="setups" class="row">
+          </div>
+        </div>
+      </section>
+
+
+
+
+  </main>
+
+  <footer>
+    <nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="nav-logo">
+              [wipzard]
+
+              <span>
+                © 2017
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-9">
+            <div id='menu' class="nav-menu">
+              <a class="btn btn-link" href="aboutus">
+                About Us
+              </a>
+
+              <a class="btn btn-link" href="tos">
+                Terms
+              </a>
+
+              <a class="btn btn-link" href="privacy">
+                Privacy
+              </a>
+
+              <a class="btn btn-link" href="dmca">
+                DMCA
+              </a>
+
+              <a class="btn btn-link" href="mailto: info@put.io">
+                Contact
+              </a>
+
+              <a class="btn btn-link" href="https://api.put.io/v2/docs">
+                API
+              </a>
+
+              <a class="btn btn-link" href="https://www.facebook.com/putdotio">
+                Facebook
+              </a>
+
+              <a class="btn btn-link" href="https://twitter.com/putdotio">
+                Twitter
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </footer>
+
+  <script src="/js/underscore-min.js"></script>
+
+  <script type="text/javascript" src="/js/d3.v3.min.js"></script>
+  <script src="/js/topojson.v1.min.js"></script>
+  <script src="/js/dijkstra.js"></script>
+
+  <script type="text/javascript" src="http://www.marcedelpino.com/d3.geo.projection.v0.min.js"></script>
+  <script type="text/javascript" src="/js/worldanimation.js"></script>
+  <script type="text/javascript" src="/js/fetch.js"></script>
+  <script type="text/javascript" src="/js/config.js"></script>
+  <script type="text/javascript" src="/js/js.cookie.js"></script>
+  <script type="text/javascript" src="/js/main.js"></script>
+  <script>
+    // var simulation = Simulation({
+    //   drawing_element: '#wikipedia1'
+    // })
+    // simulation.show()
+    // setInterval(function () {
+    //   simulation.add_client()
+    // }, 100)
+  </script>
+
+</body>
+
+</html>
