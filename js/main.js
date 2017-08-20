@@ -519,8 +519,8 @@ var animateWorld = function(){
                 window.fetch(geoipservice+each_io_server.address).then(function (response) {
                     return response.json()
                 }).then(function (server) {
-                    document.drawRoute([client.lon, client.lat], [server.lon, server.lat], 100, undefined, function(){
-                        drawDots([[client.lon, client.lat, document.proxyline],[server.lon, server.lat, document.proxyline]])
+                    document.drawRoute([client.longitude, client.latitude], [server.longitude, server.latitude], 100, undefined, function(){
+                        drawDots([[client.longitude, client.latitude, document.proxyline],[server.longitude, server.latitude, document.proxyline]])
                     })
                 })
             })
