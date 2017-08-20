@@ -1,6 +1,7 @@
 console.log('location:', document.location)
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
 
+document.proxyline = "blue"
 
 
 var checkcodeinput = function (e) {
@@ -34,8 +35,10 @@ if (document.config == undefined) {
     document.config = {}
 }
 
-document.config['name'] = document.location.hostname.split('.')[1],
+document.config['name'] = document.location.hostname.split('.')[1].toLowerCase(),
     document.config['params'] = qJSON(document.location.hash)
+
+document.getElementById('brand').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
 
 var JSONq = function (params) {
     var hash = []
@@ -53,10 +56,17 @@ var fillFields = function (params, extra, bad_extra) {
     if (extra == undefined) {
         extra = ""
     }
+    if (bad_extra == undefined) {
+        bad_extra = ""
+    }
     Object.keys(params).forEach(function (param) {
         if (document.getElementById(param) != null) {
-            if (params[param].indexOf('DISABLED') > -1) {
-                document.getElementById(param).innerHTML = bad_extra + decodeURI(params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+            if (params[param] != undefined && typeof (params[param]) === 'string' && (params[param].indexOf('DISABLED') > -1 || params[param].indexOf('EXPIRED') > -1)) {
+                if (params[param].indexOf('EXPIRED') > -1) {
+                    document.getElementById(param).innerHTML = bad_extra + decodeURI(params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
+                } else {
+                    document.getElementById(param).innerHTML = bad_extra + decodeURI(params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                }
                 extra = ''
             } else {
                 document.getElementById(param).innerHTML = extra + decodeURI(params[param])
@@ -85,8 +95,9 @@ var countdown = function () {
         clearInterval(x);
         document.getElementById('passcode').innerHTML = '<strike>' + document.getElementById('passcode').innerHTML + '</strike>'
 
-        document.getElementById('daysleftleft').innerHTML = "Already <u>expired</u>";
-        document.getElementById('daysleft').innerHTML = "<a class='getnewone'>GET A NEW ONE</a>";
+        document.getElementById('activationcodemsg').innerHTML = "Your activation code";
+        document.getElementById('daysleftleft').innerHTML = "Has <u>expired</u>";
+        document.getElementById('daysleft').innerHTML = "<a href='/#pricing' class='btn enabler btn-yellow'>GET A NEW ONE</a>";
     }
 };
 
@@ -119,27 +130,26 @@ var checkIp = function (ip, callback) {
     })).then(function (response) {
         return response.json()
     }).then(function (json) {
+        if(json.status === 'ENABLED'){
+            document.proxyline = 'green'
+        }
         console.log('<checkIp>:result', json)
-        if (json.status.indexOf('ENA') === 0) {
-            if(Cookies.get('code') != undefined){
-                document.getElementById('calltoaction').style.display = ""                
-                document.getElementById('calltoaction').innerHTML = 'Manage'
-                document.getElementById('calltoaction').href = '/#/manage'
-            } else {
-                document.getElementById('calltoaction').style.display = "none"
-            }
+        if (Cookies.get('code') != undefined) {
+            document.getElementById('calltoaction').style.display = "none"
         }
         fillFields(json, check_symbol_thumb, bad_check_symbol)
         if (callback) {
             callback(json)
         }
+        animateWorld()
     })
 }
 
 var applyCode = function (code, callback, failback) {
     console.log('<applyCode>', code)
     window.fetch(document.api + JSONq({
-        code: code
+        code: code,
+        brand: document.config['name']
     })).then(function (response) {
         return response.json()
     }).then(function (json) {
@@ -190,8 +200,8 @@ if (params.indexOf('pricing') > -1) {
 
 if (has('manage')) {
     if (Cookies.get('tx') == undefined) {
-        if(Cookies.get('code') == undefined){
-            document.location = '/'            
+        if (Cookies.get('code') == undefined) {
+            document.location = '/'
         } else {
             getTx(Cookies.get('code'), function (tx) {
                 Cookies.set('tx', tx)
@@ -199,8 +209,21 @@ if (has('manage')) {
             })
         }
     } else {
-        document.location = '/#amt=true&'+'tx=' + Cookies.get('tx')
+        document.location = '/#amt=true&' + 'tx=' + Cookies.get('tx')
     }
+}
+
+if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
+    console.log('getting terms!')
+    hideParts(['ipinfo'])
+    window.fetch('terms.html').then(function (response) {
+        return response.text()
+    }).then(function (html) {
+        console.log('html', html)
+        fillFields({
+            terms: html.replace(new RegExp('BRAND', 'g'), document.config.name[0].toUpperCase() + document.config.name.substr(1))
+        })
+    })
 }
 
 if (has('activate')) {
@@ -214,7 +237,7 @@ if (has('activate')) {
                 applyCode(document.config.params['activate'], function (json) {
                     json['passcode'] = json['code']
                     var postjson = {}
-                    if (json.status === 'ENABLED') {
+                    if (json.status === 'ENABLED' || json.status === 'EXPIRED') {
                         console.log('code enabled!!')
                         hideParts(['entercode'])
                         showParts(['manage'])
@@ -225,15 +248,23 @@ if (has('activate')) {
                         countdown()
                         x = setInterval(countdown, 1000)
                     }
-                    postjson['status'] = json['status']
-                    json['status'] = '<img class="ipactivation" src="/images/30.gif" />'
-                    fillFields(json, check_symbol)
-                    console.log('json??', json)
-                    document.getElementById('statusmessage').innerHTML = "Activating..."
-                    setTimeout(function () {
-                        document.getElementById('statusmessage').innerHTML = "Service"
-                        fillFields(postjson, check_symbol)
-                    }, 4000)
+                    if (json.status === 'ENABLED') {
+                        postjson['status'] = json['status']
+                        json['status'] = '<img class="ipactivation" src="/images/30.gif" />'
+                        fillFields(json, check_symbol)
+                        console.log('json??', json)
+                        document.getElementById('statusmessage').innerHTML = "Activating..."
+                        var delay = 4000
+                        if (json.status === 'EXPIRED') {
+                            delay = 1
+                        }
+                        setTimeout(function () {
+                            document.getElementById('statusmessage').innerHTML = "Service"
+                            fillFields(postjson, check_symbol)
+                        }, 4000)
+                    } else {
+                        fillFields(json)
+                    }
                 }, function (json) {
                     console.log('INVALID CODE')
                     fillFields({
@@ -244,12 +275,12 @@ if (has('activate')) {
                     showParts(['pricing'])
                 })
             } else {
-                getTx(document.config.params['activate'], function(tx){
+                getTx(document.config.params['activate'], function (tx) {
                     console.log('tx', tx)
-                    if(tx!=undefined){
+                    if (tx != undefined) {
                         showParts(['manage'])
                         Cookies.set('code', document.config.params['activate'])
-                        Cookies.set('tx',tx)
+                        Cookies.set('tx', tx)
                         hideParts(['entercode'])
                     }
                 })
@@ -261,46 +292,29 @@ if (has('activate')) {
         })
     } else {
         if (Cookies.get('code') !== undefined) {
-            // if (document.config.params['activate'] !== 'done') {
-                // showActivationInfo()
-                // window.fetch(document.api + JSONq({
-                //     checkip: Cookies.get('code')
-                // })).then(function (response) {
-                //     return response.json()
-                // }).then(
-                checkIp(Cookies.get('code'),function (json) {
-                    console.log('-status:', json)
-                    if (json.status.indexOf('ENABLED') == -1) {
-                        window.fetch(document.api + JSONq({
-                            code: Cookies.get('code')
-                        })).then(function (response) {
-                            return response.json()
-                        }).then(function (json) {
-                            console.log('activated?', json)
-                            document.getElementById('statusmessage').innerHTML = "Activating..."
-                            setTimeout(function () {
-                                document.getElementById('statusmessage').innerHTML = "Service"
-                                fillFields(json, check_symbol_thumb, bad_check_symbol)
-                            }, 8000)
-                        })
-                    } else {
-                        hideParts(['activationcode', 'activationexpire'])
-                        fillFields(json, check_symbol_thumb, bad_check_symbol)
-                    }
-                    showParts(['setup'])
-                })
-            // } else {
-            //     console.log('default option...')
-            //     window.fetch(document.api + JSONq({
-            //         checkip: Cookies.get('code')
-            //     })).then(function (response) {
-            //         return response.json()
-            //     }).then(function (json) {
-            //         console.log(json)
-            //         fillFields(json, check_symbol_thumb, bad_check_symbol)
-            //         showParts(['setup'])
-            //     })
-            // }
+            checkIp(Cookies.get('code'), function (json) {
+                console.log('-status:', json)
+                if (json.status.indexOf('ENABLED') == -1) {
+                    applyCode(Cookies.get('code'), function (json) {
+                        console.log('activated?', json)
+                        document.getElementById('statusmessage').innerHTML = "Activating..."
+                        var delay = 8000
+                        if (json.status === 'EXPIRED') {
+                            delay = 500
+                            check_symbol = ''
+                        }
+                        document.getElementById('status').innerHTML = check_symbol + '<img class="ipactivation" src="/images/30.gif" />'
+                        setTimeout(function () {
+                            document.getElementById('statusmessage').innerHTML = "Service"
+                            fillFields(json, check_symbol_thumb, bad_check_symbol)
+                        }, delay)
+                    })
+                } else {
+                    hideParts(['activationcode', 'activationexpire'])
+                    fillFields(json, check_symbol_thumb, bad_check_symbol)
+                }
+                showParts(['setup'])
+            })
         } else {
             console.log('activate, but no code in cookie...')
             showParts(['pricing'])
@@ -320,8 +334,6 @@ if (document.config.params['tx'] != undefined) {
         console.log('==> show payment info!')
         document.getElementById('paymentinfo').style.display = ''
     }
-    // hideParts(['service', 'forip'])
-
 
     fillFields(document.config.params)
     var checkTX = function () {
@@ -331,8 +343,17 @@ if (document.config.params['tx'] != undefined) {
         })).then(function (response) {
             return response.json()
         }).then(function (json) {
+            console.log('tx>>', json)
             Cookies.set('tx', document.config.params['tx']);
-            fillFields(document.config.params, check_symbol)
+            document.config.params.expiration =
+                console.log('<>>>', document.config.params)
+            var createdAt = new Date(json.createdAt)
+            var dat = new Date(json.createdAt)
+            dat.setDate(dat.getDate() + 2)
+            fillFields({
+                created: createdAt.toDateString(),
+                expiration: dat.toDateString()
+            }, check_symbol)
             window.fetch(document.api + JSONq({
                 tx_code: document.config.params['tx']
             })).then(function (response) {
@@ -429,7 +450,79 @@ if (Cookies.get('code') === undefined &&
 ) {
     showParts(['entercode'])
 } else {
-    if(!hide_manage){
+    if (!hide_manage) {
         showParts(['manage'])
     }
+}
+
+
+
+// world animation and stuff:
+
+var drawDots = function(data){
+    console.log('<drawDots>', data)
+    airports_dots = svg.selectAll("circle")
+        .data(data)
+    
+    airports_dots.enter()
+        .append("circle")
+        .attr("cx", function (d) {
+            return projection([d[0], d[1]])[0];
+        })
+        .attr("cy", function (d) {
+            return projection([d[0], d[1]])[1];
+        })
+        .attr("r", "5px")
+        .attr('stroke', 'rgba(0,0,0,0)')
+        .attr('stroke-width', '10px')
+    
+        .attr("fill", document.proxyline)
+        .transition().delay(function (d, i) {
+            return i * 4
+        })
+        .attr("fill", document.proxyline)
+
+    airports_dots
+        .attr("cx", function (d) {
+            return projection([d[0], d[1]])[0];
+        })
+        .attr("cy", function (d) {
+            return projection([d[0], d[1]])[1];
+        })
+        .attr("r", "5px")
+        .attr('stroke', 'rgba(0,0,0,0)')
+        .attr('stroke-width', '10px')
+    
+        .attr("fill", 'blue')
+        .transition().delay(function (d, i) {
+            return i * 4
+        })
+        .attr("fill", function(d){
+            console.log('d', d)
+            return d[2]
+        })
+}
+
+var animateWorld = function(){
+    window.fetch(document.api + 'servers=available').then(function (response) {
+        return response.json()
+    }).then(function (json) {
+        console.log('servers', json)
+        var now = new Date()
+        json.result.forEach(function (each_io_server) {
+            var created = new Date(each_io_server.createdAt)
+            console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
+            var socket = io(each_io_server.address + ':3000');
+            socket.on('multiproxy-info', function (info) {
+                info.client.ll.reverse()
+                info.server.ll.reverse()
+                info.client.ll.push('red')
+                info.server.ll.push(document.proxyline)
+                // drawDots([info.client.ll.reverse()])
+                document.drawRoute(info.client.ll, info.server.ll, 100, undefined, function(){
+                    drawDots([info.client.ll,info.server.ll])
+                })
+            })
+        })
+    })
 }
