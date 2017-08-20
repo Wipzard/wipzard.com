@@ -19,44 +19,30 @@
     })(window, document, 'script', 'dataLayer', 'GTM-NG5H8HH');
   </script> -->
 
-  <title>Put.io is your digital stash</title>
+  <title>Feel the freedom</title>
 
-  <meta name="description" content="The cloud storage service with a certain gravity">
-  <meta name="author" content="devs@put.io">
+  <meta name="description" content="Feel the freedom, no registration required.">
+  <meta name="author" content="devs@wipzard.com">
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Put.io" />
-  <meta property="og:description" content="The cloud storage service with a certain gravity" />
-  <meta property="og:url" content="http://put.io" />
+  <meta property="og:title" content="Geo-unblocked Internet" />
+  <meta property="og:description" content="Feel the freedom, no registration required." />
+  <meta id="url" property="og:url" content="https://www.wipzard.com/" />
   <meta property="og:image" content="/landing/images/og.png" />
-  <meta property="og:site_name" content="Put.io" />
-  <meta property="fb:admins" content="501671656,526772685,501581847" />
-  <meta name="f18dc48e77219ee4edb4ef5e0e55372485712a41" content="944bcd6eac74f06f8273bfa18c6213b44318b731" />
+  <meta property="og:site_name" content="Wipzard" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/landing/images/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/landing/images/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/landing/images/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/landing/images/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/landing/images/apple-touch-icon-60x60.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/landing/images/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/landing/images/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/landing/images/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/landing/images/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/landing/images/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/png" href="/landing/images/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/landing/images/favicon-16x16.png" sizes="16x16" />
-  <link rel="icon" type="image/png" href="/landing/images/favicon-128.png" sizes="128x128" />
-  <meta name="msapplication-TileColor" content="#FFC40D" />
-  <meta name="msapplication-TileImage" content="/landing/images/mstile-144x144.png" />
-  <meta name="msapplication-square70x70logo" content="/landing/images/mstile-70x70.png" />
-  <meta name="msapplication-square150x150logo" content="/landing/images/mstile-150x150.png" />
-  <meta name="msapplication-wide310x150logo" content="/landing/images/mstile-310x150.png" />
-  <meta name="msapplication-square310x310logo" content="/landing/images/mstile-310x310.png" />
+  <link rel="icon" type="image/ico" href="https://awsmedia.s3.amazonaws.com/favicon.ico"/>
+
   <link href="/css/font-awesome.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Concert+One|Titillium+Web:400,700,900" rel="stylesheet" />
   <link href="/css/main.css" rel="stylesheet" />
   <link href="/css/local.css" rel="stylesheet" />
 </head>
+<script>
+  var name = document.location.hostname.split('.')[1].toLowerCase()
+  document.querySelector('meta[property="og:url"]').setAttribute("content", 'https://'+document.location.hostname);
+  document.querySelector('meta[property="og:site_name"]').setAttribute("content", name[0].toUpperCase() + name.substr(1));
+</script>
 <style>
   .graticule {
     fill: none;
@@ -408,12 +394,12 @@
   <script src="/js/topojson.v1.min.js"></script>
   <script src="/js/dijkstra.js"></script>
 
-  <script type="text/javascript" src="http://www.marcedelpino.com/d3.geo.projection.v0.min.js"></script>
+  <script type="text/javascript" src="/js/d3.geo.projection.v0.min.js"></script>
   <!-- <script type="text/javascript" src="http://bl.ocks.org/bakks/raw/9405946/submarine.js"></script> -->
   <script type="text/javascript" src="/js/worldanimation.js"></script>
   <script type="text/javascript" src="/js/fetch.js"></script>
   
-  <script type="text/javascript" src="https://s3-eu-west-1.amazonaws.com/wipzard/config.js"></script>
+  <script type="text/javascript" src="https://s3-eu-west-1.amazonaws.com/wipzard/config.js?v=1.0"></script>
   <!-- <script type="text/javascript" src="https://gist.githubusercontent.com/guerrerocarlos/5894d6bc3f3bf09356864304961ecf16/raw/config.js"></script> -->
   
   <script type="text/javascript" src="/js/js.cookie.js"></script>
