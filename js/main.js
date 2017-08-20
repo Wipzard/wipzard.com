@@ -509,14 +509,14 @@ var animateWorld = function(){
     }).then(function (json) {
         console.log('servers', json)
         var now = new Date()
-
-        window.fetch('http://ip-api.com/json/').then(function (response) {
+        var geoipservice = 'https://freegeoip.net/json/'
+        window.fetch(geoipservice).then(function (response) {
             return response.json()
         }).then(function (client) {
             json.result.forEach(function (each_io_server) {
                 var created = new Date(each_io_server.createdAt)
                 console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
-                window.fetch('http://ip-api.com/json/'+each_io_server.address).then(function (response) {
+                window.fetch(geoipservice+each_io_server.address).then(function (response) {
                     return response.json()
                 }).then(function (server) {
                     document.drawRoute([client.lon, client.lat], [server.lon, server.lat], 100, undefined, function(){
