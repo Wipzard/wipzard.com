@@ -404,7 +404,7 @@ if (Object.keys(document.config.params).length == 0) {
 
 var try_plan = document.config[document.config.name]['plans']['try']
 var payment = 'paypal'
-document.getElementById('try-plan-item-price').innerHTML = try_plan.price.split('.')[0] + '.<small>' + try_plan.price.split('.')[1] + '</small>'
+document.getElementById('try-plan-item-price').innerHTML = (try_plan.price.split('.')[0] + '.<small>' + try_plan.price.split('.')[1] + '</small>').replace('$', '<small>$</small>')
 document.getElementById('try-plan-item-description').innerHTML = try_plan.description
 document.getElementById('try-plan-item-button').innerHTML = try_plan[payment]
 document.getElementById('try-plan-item-header').innerHTML = try_plan.header
@@ -433,7 +433,7 @@ for (var each_plan = 1; each_plan <= 2; each_plan++) {
         if (typeof (plan[attrib]) == 'string' && plan[attrib].indexOf('$') > -1) {
             var parts = plan[attrib].split('.')
             var first_part = parts.shift()
-            update['plan' + each_plan + '-' + attrib] = first_part + '.<small>' + parts.join('.') + '</small>'
+            update['plan' + each_plan + '-' + attrib] = (first_part + '.<small>' + parts.join('.') + '</small>').replace('$', '<small>$</small>')
         } else {
             update['plan' + each_plan + '-' + attrib] = plan[attrib]
         }
@@ -509,18 +509,19 @@ var animateWorld = function(){
     }).then(function (json) {
         console.log('servers', json)
         var now = new Date()
-        json.result.forEach(function (each_io_server) {
-            var created = new Date(each_io_server.createdAt)
-            console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
-            var socket = io('http://'+each_io_server.address + ':3000');
-            socket.on('multiproxy-info', function (info) {
-                info.client.ll.reverse()
-                info.server.ll.reverse()
-                info.client.ll.push('red')
-                info.server.ll.push(document.proxyline)
-                // drawDots([info.client.ll.reverse()])
-                document.drawRoute(info.client.ll, info.server.ll, 100, undefined, function(){
-                    drawDots([info.client.ll,info.server.ll])
+
+        window.fetch('http://ip-api.com/json/').then(function (response) {
+            return response.json()
+        }).then(function (client) {
+            json.result.forEach(function (each_io_server) {
+                var created = new Date(each_io_server.createdAt)
+                console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
+                window.fetch('http://ip-api.com/json/'+each_io_server.address).then(function (response) {
+                    return response.json()
+                }).then(function (server) {
+                    document.drawRoute([client.lon, client.lat], [server.lon, server.lat], 100, undefined, function(){
+                        drawDots([[client.lon, client.lat, document.proxyline],[server.lon, server.lat, document.proxyline]])
+                    })
                 })
             })
         })
