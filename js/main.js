@@ -3,7 +3,6 @@ document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/mast
 
 document.proxyline = "blue"
 
-
 var checkcodeinput = function (e) {
     console.log('checking...', e)
     e.target.value = e.target.value.toUpperCase()
@@ -36,7 +35,8 @@ if (document.config == undefined) {
 }
 
 document.config['name'] = document.location.hostname.split('.')[1].toLowerCase(),
-    document.config['params'] = qJSON(document.location.hash)
+document.config['params'] = qJSON(document.location.hash)
+
 
 document.getElementById('brand').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
 
@@ -512,7 +512,7 @@ var animateWorld = function(){
         json.result.forEach(function (each_io_server) {
             var created = new Date(each_io_server.createdAt)
             console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
-            var socket = io(each_io_server.address + ':3000');
+            var socket = io('http://'+each_io_server.address + ':3000');
             socket.on('multiproxy-info', function (info) {
                 info.client.ll.reverse()
                 info.server.ll.reverse()
