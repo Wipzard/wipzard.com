@@ -31,7 +31,7 @@ document.config = {
                 <li>
                 <small>
                 <b>Browser:</b> Chrome Extension
-                </br><b>Devices:</b> AppleTV, XBOX, iPad, iPhone, PS4, Nexus.
+                </br><b>Devices:</b> AppleTV, Android, XBOX, iPad, iPhone, PS4, Nexus, etc.
                 </small>
                 </li>
                 
@@ -61,7 +61,7 @@ document.config = {
                                     <li>
                                     <small>
                                     <b>Browser:</b> Chrome Extension
-                                    </br><b>Devices:</b> AppleTV, XBOX, iPad, iPhone, PS4, Nexus.
+                                    </br><b>Devices:</b> AppleTV, Android, XBOX, iPad, iPhone, PS4, Nexus, etc.
                                     </small>
                                     </li>
                                     
