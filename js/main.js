@@ -325,14 +325,23 @@ if (has('activate')) {
 }
 
 
+if (document.config.params['logout'] != undefined) {
+    Cookies.remove('code');
+    Cookies.remove('tx');
+    Cookies.remove('expiration');
+    document.location = "/"
+}    
+
 if (document.config.params['tx'] != undefined) {
     hide_manage = true
     hideParts(['manage'])
+    console.log('show logout')
     showActivationInfo()
     console.log('config', document.config)
     if (document.config.params['amt'] != undefined) {
         console.log('==> show payment info!')
         document.getElementById('paymentinfo').style.display = ''
+        showParts(['logout'])
     }
 
     fillFields(document.config.params)
