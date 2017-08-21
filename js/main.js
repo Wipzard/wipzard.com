@@ -3,6 +3,26 @@ document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/mast
 
 document.proxyline = "blue"
 
+var requestTEXT = function(url, callback, failback){
+    window.fetch(url).then(function (response) {
+        return response.text()
+    }).then(function (json) {
+        if(callback) callback(json)
+    }).catch(function(er){
+        if(failback) failback(er)
+    })
+}
+
+var requestJSON = function(url, callback, failback){
+    window.fetch(url).then(function (response) {
+        return response.json()
+    }).then(function (json) {
+        if(callback) callback(json)
+    }).catch(function(er){
+        if(failback) failback(er)
+    })
+}
+
 var checkcodeinput = function (e) {
     console.log('checking...', e)
     e.target.value = e.target.value.toUpperCase()
@@ -111,12 +131,18 @@ var showParts = function (parts) {
         if (document.getElementById(id) !== null) {
             document.getElementById(id).style.display = ''
         }
+        if (document.getElementById('_'+id) !== null) {
+            document.getElementById('_'+id).style.display = ''
+        }
     })
 }
 var hideParts = function (parts) {
     parts.forEach(function (id) {
         if (document.getElementById(id) !== null) {
             document.getElementById(id).style.display = 'none'
+        }
+        if (document.getElementById('_'+id) !== null) {
+            document.getElementById('_'+id).style.display = 'none'
         }
     })
 }
@@ -332,6 +358,33 @@ if (document.config.params['logout'] != undefined) {
     document.location = "/"
 }    
 
+if (document.config.params['setup'] != undefined) {
+    // hideParts(['manage'])
+    var converter = new showdown.Converter()    
+    hideParts(['ipinfo'])
+    showParts(['setup', 'setupcontent'])
+    console.log('>>>', document.config[document.config.name])
+    document.config[document.config.name].setup.forEach(function(each_setup){
+        if(each_setup.id === document.config.params['setup']){
+            if(each_setup.youtube != undefined){
+                document.getElementById('_setupvideo').src = each_setup.youtube
+                showParts(['setupvideo']) 
+            }
+        }
+    })
+    // if(document.config[document.name].setup[document.config.params['setup']].youtube != undefined){
+    //     showParts(['setupvideo'])    
+    // }
+    requestTEXT('/md/'+document.config.params['setup']+ '.md', function(text){
+        var html      = converter.makeHtml(text);
+        showParts(['setupcontainer']) 
+        
+        fillFields({'setuptitle': 'Other Setup Instructions',
+    'setupcontent': html})
+        console.log(html)
+    })
+}
+
 if (document.config.params['tx'] != undefined) {
     hide_manage = true
     hideParts(['manage'])
@@ -425,15 +478,23 @@ for (var each_plan = 1; each_plan <= 2; each_plan++) {
     document.getElementById('plans').innerHTML = document.getElementById('plans').innerHTML + replaced_template
 }
 
+var showSetup = function(num){
+    console.log('showSetup', setups[num])
+    window.scrollTo(0, 0);
+    document.location = '#setup='+setups[num].id
+}
+
 var setup_template = document.getElementById('setup_template').innerHTML
 var setups = document.config[document.config.name]['setup']
 var replaced_template
 for (var each = 0; each < setups.length; each++) {
-    replaced_template = setup_template.replace(new RegExp('NUM', 'g'), each)
-    document.getElementById('setups').innerHTML = document.getElementById('setups').innerHTML + replaced_template
-    Object.keys(setups[each]).forEach(function (atrr) {
-        update['setup' + each + '-' + atrr] = setups[each][atrr]
-    })
+    if(setups[each].id != document.config.params['setup']){
+        replaced_template = setup_template.replace(new RegExp('NUM', 'g'), each)
+        document.getElementById('setups').innerHTML = document.getElementById('setups').innerHTML + replaced_template
+        Object.keys(setups[each]).forEach(function (atrr) {
+            update['setup' + each + '-' + atrr] = setups[each][atrr]
+        })
+    }
 }
 
 for (var each_plan = 1; each_plan <= 2; each_plan++) {

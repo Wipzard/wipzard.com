@@ -80,17 +80,60 @@ document.config = {
                 `
             },
         },
-        'setup': [{
-            'id': 'chromecast',
-            'title': "Browser",
-            'description': "Unblock your Chrome browser!",
-            'image': '<img src="" alt="Chromecast Extension" />'            
-        }, {
-            'id': 'appletv',
-            'title': "AppleTV",
-            'description': "Apple unblocked!",
-            'image': '<img src="" alt="Chromecast Extension" />'            
-        }]
+        'setup': [
+            {
+                'id': 'appletv2',
+                'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
+                'title': "AppleTV",
+                'description': "Movies without borders!",
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
+            },
+            {
+                'id': 'appletv',
+                'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
+                'title': "AppleTV (old version)",
+                'description': "Still rocking it?!",
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
+            },  
+            {
+                'id': 'macosx',
+                'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
+                'title': "OSX",
+                'description': "OS Unblocked!",
+                'image': '<img src="/images/osx.png" alt="MacOSX" />'            
+            },        
+            {
+                'id': 'ios',
+                'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
+                'title': "iOS",
+                'description': "Apps unblocked!",
+                'image': '<img src="/images/ios.png" alt="iPhone" />'            
+            },      
+            {
+                'id': 'xboxone',
+                'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
+                'title': "XBOX ONE",
+                'description': "Gaming unlocked!",
+                'image': '<img src="/images/xboxone.png" alt="Xbox One" />'            
+            },
+            {
+                'id': 'android',
+                'title': "Android",
+                'description': "Stream anything anywhere with your Android phone",
+                'image': '<img src="/images/android.png" alt="Android" />'            
+            },
+            {
+                'id': 'windows7',
+                'title': "Windows 7",
+                'description': "Limitless streaming",
+                'image': '<img src="/images/windowsold.png" alt="Windows7" />'            
+            },
+            {
+                'id': 'windows8',
+                'title': "Windows 8",
+                'description': "No more geo-restrictions",
+                'image': '<img src="/images/windows.png" alt="Windows8" />'            
+            }]
     },
     "wipzard": {
         "slogan": '<b>Feel the freedom</b></br>No Registration Required',
@@ -172,16 +215,59 @@ document.config = {
                 `
             },
         },
-        'setup': [{
-            'id': 'chromecast',
-            'title': "Browser",
-            'description': "Unblock your Chrome browser!",
-            'image': '<img src="" alt="Chromecast Extension" />'            
-        }, {
-            'id': 'appletv',
+        'setup': [
+        {
+            'id': 'appletv2',
+            'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
             'title': "AppleTV",
-            'description': "Apple unblocked!",
-            'image': '<img src="" alt="Chromecast Extension" />'            
+            'description': "Movies without borders!",
+            'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
+        },
+        {
+            'id': 'appletv',
+            'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
+            'title': "AppleTV (old version)",
+            'description': "Still rocking it?!",
+            'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
+        },  
+        {
+            'id': 'macosx',
+            'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
+            'title': "OSX",
+            'description': "OS Unblocked!",
+            'image': '<img src="/images/osx.png" alt="MacOSX" />'            
+        },        
+        {
+            'id': 'ios',
+            'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
+            'title': "iOS",
+            'description': "Apps unblocked!",
+            'image': '<img src="/images/ios.png" alt="iPhone" />'            
+        },      
+        {
+            'id': 'xboxone',
+            'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
+            'title': "XBOX ONE",
+            'description': "Gaming unlocked!",
+            'image': '<img src="/images/xboxone.png" alt="Xbox One" />'            
+        },
+        {
+            'id': 'android',
+            'title': "Android",
+            'description': "Stream anything anywhere with your Android phone",
+            'image': '<img src="/images/android.png" alt="Android" />'            
+        },
+        {
+            'id': 'windows7',
+            'title': "Windows 7",
+            'description': "Limitless streaming",
+            'image': '<img src="/images/windowsold.png" alt="Windows7" />'            
+        },
+        {
+            'id': 'windows8',
+            'title': "Windows 8",
+            'description': "No more geo-restrictions",
+            'image': '<img src="/images/windows.png" alt="Windows8" />'            
         }]
     }
 }

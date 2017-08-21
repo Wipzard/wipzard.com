@@ -54,7 +54,7 @@ td {
 
 .righttable {
     font-size: 2em;
-    width: 60%;
+    width: 53%;
     text-align: left;
     padding-left: 0px;        
     padding-right: 20px;     
@@ -104,4 +104,19 @@ td {
 
 .enabler {
     margin-top: -7px;
+}
+
+.setupinfo {
+    margin: 50px;
+}
+
+.setupvideo {
+    -webkit-box-shadow: 2px 7px 16px -6px rgba(0,0,0,0.45);
+    -moz-box-shadow: 2px 7px 16px -6px rgba(0,0,0,0.45);
+    box-shadow: 2px 7px 16px -6px rgba(0,0,0,0.45);
+    background-color: black;
+}
+
+p img {
+    max-height: 400px;
 }
