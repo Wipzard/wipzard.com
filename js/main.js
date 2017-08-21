@@ -54,6 +54,10 @@ if (document.config == undefined) {
     document.config = {}
 }
 
+if(document.location.hostname.split('.').length == 2){
+    document.location.hostname = 'www.'+document.location.hostname
+}
+
 document.config['name'] = document.location.hostname.split('.')[1].toLowerCase(),
 document.config['params'] = qJSON(document.location.hash)
 
