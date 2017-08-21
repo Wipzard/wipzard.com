@@ -348,11 +348,11 @@ if (document.config.params['tx'] != undefined) {
             document.config.params.expiration =
                 console.log('<>>>', document.config.params)
             var createdAt = new Date(json.createdAt)
-            var dat = new Date(json.createdAt)
-            dat.setDate(dat.getDate() + 2)
+            // var dat = new Date(json.createdAt)
+            // dat.setDate(dat.getDate() + 2)
             fillFields({
                 created: createdAt.toDateString(),
-                expiration: dat.toDateString()
+                // expiration: dat.toDateString()
             }, check_symbol)
             window.fetch(document.api + JSONq({
                 tx_code: document.config.params['tx']
