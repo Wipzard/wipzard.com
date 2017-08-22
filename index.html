@@ -24,6 +24,7 @@
   <link href="/css/main.css?v=A" rel="stylesheet" />
   <link href="/css/local.css?v=B" rel="stylesheet" />
 </head>
+<script>
   var name = document.location.hostname.split('.')[1].toLowerCase()
   document.querySelector('meta[property="og:url"]').setAttribute("content", 'https://' + document.location.hostname);
   document.querySelector('meta[property="og:site_name"]').setAttribute("content", name[0].toUpperCase() + name.substr(1));
