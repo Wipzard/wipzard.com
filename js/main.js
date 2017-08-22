@@ -1,5 +1,9 @@
-console.log('location:', document.location)
+log('location:', document.location)
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
+
+var log = function(){
+    
+}
 
 document.proxyline = "blue"
 
@@ -24,9 +28,9 @@ var requestJSON = function(url, callback, failback){
 }
 
 var checkcodeinput = function (e) {
-    console.log('checking...', e)
+    log('checking...', e)
     e.target.value = e.target.value.toUpperCase()
-    console.log('checking...', document.getElementById('codeinput'))
+    log('checking...', document.getElementById('codeinput'))
     if (e.target.value.length >= 6) {
         document.location = '/#activate=' + e.target.value
     }
@@ -163,7 +167,7 @@ var checkIp = function (ip, callback) {
         if(json.status === 'ENABLED'){
             document.proxyline = '#00e600'
         }
-        console.log('<checkIp>:result', json)
+        log('<checkIp>:result', json)
         if (Cookies.get('code') != undefined) {
             document.getElementById('calltoaction').style.display = "none"
         }
@@ -176,14 +180,14 @@ var checkIp = function (ip, callback) {
 }
 
 var applyCode = function (code, callback, failback) {
-    console.log('<applyCode>', code)
+    log('<applyCode>', code)
     window.fetch(document.api + JSONq({
         code: code,
         brand: document.config['name']
     })).then(function (response) {
         return response.json()
     }).then(function (json) {
-        console.log('<applyCode>response:', json)
+        log('<applyCode>response:', json)
         if (json.status === undefined) {
             callback = failback
         }
@@ -191,7 +195,7 @@ var applyCode = function (code, callback, failback) {
             callback(json)
         }
     }).catch(function (err) {
-        console.log('<applyCode>error:', err)
+        log('<applyCode>error:', err)
         if (failback) {
             failback(err)
         }
@@ -217,7 +221,7 @@ var getTx = function (code, callback, failback) {
     })
 }
 
-console.log('CONFIG', document.config)
+log('CONFIG', document.config)
 var has = function (param) {
     return params.indexOf(param) > -1
 }
@@ -244,12 +248,12 @@ if (has('manage')) {
 }
 
 if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
-    console.log('getting terms!')
+    log('getting terms!')
     hideParts(['ipinfo'])
     window.fetch('terms.html').then(function (response) {
         return response.text()
     }).then(function (html) {
-        console.log('html', html)
+        log('html', html)
         fillFields({
             terms: html.replace(new RegExp('BRAND', 'g'), document.config.name[0].toUpperCase() + document.config.name.substr(1))
         })
@@ -258,9 +262,9 @@ if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
 
 if (has('activate')) {
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
-        console.log('not now nor done')
+        log('not now nor done')
         checkIp(document.config.params['activate'], function (ip) {
-            console.log('ip', ip)
+            log('ip', ip)
             if (ip.status.indexOf('ENABLED') == -1) {
                 showActivationInfo()
 
@@ -268,7 +272,7 @@ if (has('activate')) {
                     json['passcode'] = json['code']
                     var postjson = {}
                     if (json.status === 'ENABLED' || json.status === 'EXPIRED') {
-                        console.log('code enabled!!')
+                        log('code enabled!!')
                         hideParts(['entercode'])
                         showParts(['manage'])
                         showParts(['setup'])
@@ -282,7 +286,7 @@ if (has('activate')) {
                         postjson['status'] = json['status']
                         json['status'] = '<img class="ipactivation" src="/images/30.gif" />'
                         fillFields(json, check_symbol)
-                        console.log('json??', json)
+                        log('json??', json)
                         document.getElementById('statusmessage').innerHTML = "Activating..."
                         var delay = 4000
                         if (json.status === 'EXPIRED') {
@@ -296,7 +300,7 @@ if (has('activate')) {
                         fillFields(json)
                     }
                 }, function (json) {
-                    console.log('INVALID CODE')
+                    log('INVALID CODE')
                     fillFields({
                         passcode: 'INVALID',
                         daysleft: '--'
@@ -306,7 +310,7 @@ if (has('activate')) {
                 })
             } else {
                 getTx(document.config.params['activate'], function (tx) {
-                    console.log('tx', tx)
+                    log('tx', tx)
                     if (tx != undefined) {
                         showParts(['manage'])
                         Cookies.set('code', document.config.params['activate'])
@@ -314,7 +318,7 @@ if (has('activate')) {
                         hideParts(['entercode'])
                     }
                 })
-                console.log('already enabled :)')
+                log('already enabled :)')
                 hideParts(['activationcode', 'activationexpire'])
                 showParts(['setup'])
                 fillFields(ip, check_symbol)
@@ -323,10 +327,10 @@ if (has('activate')) {
     } else {
         if (Cookies.get('code') !== undefined) {
             checkIp(Cookies.get('code'), function (json) {
-                console.log('-status:', json)
+                log('-status:', json)
                 if (json.status.indexOf('ENABLED') == -1) {
                     applyCode(Cookies.get('code'), function (json) {
-                        console.log('activated?', json)
+                        log('activated?', json)
                         document.getElementById('statusmessage').innerHTML = "Activating..."
                         var delay = 8000
                         if (json.status === 'EXPIRED') {
@@ -346,7 +350,7 @@ if (has('activate')) {
                 showParts(['setup'])
             })
         } else {
-            console.log('activate, but no code in cookie...')
+            log('activate, but no code in cookie...')
             showParts(['pricing'])
             hideParts(['ipinfo'])
         }
@@ -367,7 +371,7 @@ if (document.config.params['setup'] != undefined) {
     var converter = new showdown.Converter()    
     hideParts(['ipinfo'])
     showParts(['setup', 'setupcontent'])
-    console.log('>>>', document.config[document.config.name])
+    log('>>>', document.config[document.config.name])
     document.config[document.config.name].setup.forEach(function(each_setup){
         if(each_setup.id === document.config.params['setup']){
             if(each_setup.youtube != undefined){
@@ -385,18 +389,18 @@ if (document.config.params['setup'] != undefined) {
         
         fillFields({'setuptitle': 'Other Setup Instructions',
     'setupcontent': html})
-        console.log(html)
+        log(html)
     })
 }
 
 if (document.config.params['tx'] != undefined) {
     hide_manage = true
     hideParts(['manage'])
-    console.log('show logout')
+    log('show logout')
     showActivationInfo()
-    console.log('config', document.config)
+    log('config', document.config)
     if (document.config.params['amt'] != undefined) {
-        console.log('==> show payment info!')
+        log('==> show payment info!')
         document.getElementById('paymentinfo').style.display = ''
         showParts(['logout'])
     }
@@ -409,10 +413,10 @@ if (document.config.params['tx'] != undefined) {
         })).then(function (response) {
             return response.json()
         }).then(function (json) {
-            console.log('tx>>', json)
+            log('tx>>', json)
             Cookies.set('tx', document.config.params['tx']);
             document.config.params.expiration =
-                console.log('<>>>', document.config.params)
+                log('<>>>', document.config.params)
             var createdAt = new Date(json.createdAt)
             // var dat = new Date(json.createdAt)
             // dat.setDate(dat.getDate() + 2)
@@ -425,7 +429,7 @@ if (document.config.params['tx'] != undefined) {
             })).then(function (response) {
                 return response.json()
             }).then(function (json) {
-                console.log('tx_code', json)
+                log('tx_code', json)
                 countDownDate = new Date(json.Items[0].expiration_date).getTime()
                 now = new Date().getTime()
                 countdown()
@@ -440,14 +444,14 @@ if (document.config.params['tx'] != undefined) {
                 })).then(function (response) {
                     return response.json()
                 }).then(function (json) {
-                    console.log(json)
+                    log(json)
                     fillFields(json, check_symbol_thumb, bad_check_symbol)
                 })
 
 
             })
 
-            console.log(json)
+            log(json)
             fillFields(json, check_symbol)
         }).catch(function () {
             if (retry < 10) {
@@ -455,7 +459,7 @@ if (document.config.params['tx'] != undefined) {
             } else {
                 showParts(['txhelp'])
             }
-            console.log('tx not founc!')
+            log('tx not founc!')
         })
     }
     checkTX()
@@ -483,7 +487,7 @@ for (var each_plan = 1; each_plan <= 2; each_plan++) {
 }
 
 var showSetup = function(num){
-    console.log('showSetup', setups[num])
+    log('showSetup', setups[num])
     window.scrollTo(0, 0);
     document.location = '#setup='+setups[num].id
 }
@@ -534,7 +538,7 @@ if (Cookies.get('code') === undefined &&
 // world animation and stuff:
 
 var drawDots = function(data){
-    console.log('<drawDots>', data)
+    log('<drawDots>', data)
     airports_dots = svg.selectAll("circle")
         .data(data)
     
@@ -572,7 +576,7 @@ var drawDots = function(data){
             return i * 4
         })
         .attr("fill", function(d){
-            console.log('d', d)
+            log('d', d)
             return d[2]
         })
 }
@@ -581,7 +585,7 @@ var animateWorld = function(){
     window.fetch(document.api + 'servers=available').then(function (response) {
         return response.json()
     }).then(function (json) {
-        console.log('servers', json)
+        log('servers', json)
         var now = new Date()
         var geoipservice = 'https://freegeoip.net/json/'
         window.fetch(geoipservice).then(function (response) {
@@ -589,7 +593,7 @@ var animateWorld = function(){
         }).then(function (client) {
             json.result.forEach(function (each_io_server) {
                 var created = new Date(each_io_server.createdAt)
-                console.log('IO Server:', each_io_server.address, 'Created at:', now - created)
+                log('IO Server:', each_io_server.address, 'Created at:', now - created)
                 window.fetch(geoipservice+each_io_server.address).then(function (response) {
                     return response.json()
                 }).then(function (server) {
