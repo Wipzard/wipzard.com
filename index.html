@@ -24,11 +24,7 @@
   <link href="/css/main.css?v=A" rel="stylesheet" />
   <link href="/css/local.css?v=B" rel="stylesheet" />
 </head>
-<script>
-  var name = document.location.hostname.split('.')[1].toLowerCase()
-  document.querySelector('meta[property="og:url"]').setAttribute("content", 'https://' + document.location.hostname);
-  document.querySelector('meta[property="og:site_name"]').setAttribute("content", name[0].toUpperCase() + name.substr(1));
-</script>
+
 <style>
   .graticule {
     fill: none;
@@ -68,11 +64,7 @@
   }
 </style>
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KKJ2G9Z');</script>
+
 
 <body onhashchange="location.reload()">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKJ2G9Z"
@@ -406,7 +398,11 @@
 
   <script type="text/javascript" src="/js/js.cookie.js"></script>
   <script type="text/javascript" src="/js/main.js?v=C"></script>
-
+  <script type="text/javascript" src="/js/gtm.js"></script>
+  <script>
+      document.querySelector('meta[property="og:url"]').setAttribute("content", 'https://' + document.location.hostname);
+      document.querySelector('meta[property="og:site_name"]').setAttribute("content", name[0].toUpperCase() + name.substr(1));
+    </script>
 
 </body>
 

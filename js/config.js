@@ -1,5 +1,6 @@
 document.config = {
     "proxydns": {
+        "gtm": 'GTM-KKJ2G9Z',
         "slogan": '<b>Feel the freedom</b></br>No Registration Required',
         "calltoaction": 'Try it for $0.99',
         "plans": {
@@ -136,6 +137,7 @@ document.config = {
             }]
     },
     "wipzard": {
+        "gtm": 'GTM-NG5H8HH',        
         "slogan": '<b>Feel the freedom</b></br>No Registration Required',
         "calltoaction": 'Try it for $0.99',
         "plans": {
