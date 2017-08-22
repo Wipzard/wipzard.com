@@ -96,7 +96,7 @@ var fillFields = function (params, extra, bad_extra) {
                 }
                 extra = ''
             } else {
-                document.getElementById(param).innerHTML = extra + decodeURI(params[param])
+                document.getElementById(param).innerHTML = extra + decodeURIComponent(''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
 
             }
         }
