@@ -44,9 +44,9 @@ var qJSON = function (hash) {
         var key = each_item.split('=')[0].replace('/', '')
         if (key != null && key != undefined && key.length > 0) {
             if (each_item.split('=')[1] != undefined) {
-                info[key] = each_item.split('=')[1]
+                info[key] = decodeURIComponent(each_item.split('=')[1])
             } else {
-                info[key] = '1'
+                info[key] = 'true'
             }
         }
     })
@@ -93,13 +93,13 @@ var fillFields = function (params, extra, bad_extra) {
         if (document.getElementById(param) != null) {
             if (params[param] != undefined && typeof (params[param]) === 'string' && (params[param].indexOf('DISABLED') > -1 || params[param].indexOf('EXPIRED') > -1)) {
                 if (params[param].indexOf('EXPIRED') > -1) {
-                    document.getElementById(param).innerHTML = bad_extra + decodeURI(params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
+                    document.getElementById(param).innerHTML = bad_extra + (params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
                 } else {
-                    document.getElementById(param).innerHTML = bad_extra + decodeURI(params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                    document.getElementById(param).innerHTML = bad_extra + (params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
                 }
                 extra = ''
             } else {
-                document.getElementById(param).innerHTML = extra + decodeURIComponent(''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
+                document.getElementById(param).innerHTML = extra + (''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
 
             }
         }
