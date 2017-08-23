@@ -67,7 +67,7 @@ document.config['params_string'] = JSON.stringify(qJSON(document.location.hash))
 document.config['hash'] = location.hash
 
 
-document.getElementById('brand').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
+document.getElementById('brandname').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
 
 var JSONq = function (params) {
     var hash = []
@@ -185,7 +185,7 @@ var applyCode = function (code, callback, failback) {
     log('<applyCode>', code)
     window.fetch(document.api + JSONq({
         code: code,
-        brand: document.config['name']
+        brand: document.config['name'] // not necesary anymore, brand is assigned by paypal itemId
     })).then(function (response) {
         return response.json()
     }).then(function (json) {
