@@ -82,6 +82,7 @@ var updateHash = function () {
 }
 
 var fillFields = function (params, extra, bad_extra) {
+    console.log('<fillFields>', params)
     if (extra == undefined) {
         extra = ""
     }

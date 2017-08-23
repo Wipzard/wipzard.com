@@ -1,4 +1,4 @@
-#Android Devices SetUp
+#Android Setup
 
 ## These are the manual configuration instructions
 
