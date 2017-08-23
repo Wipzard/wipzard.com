@@ -63,6 +63,8 @@ if(document.location.hostname.split('.').length == 2){
 
 document.config['name'] = document.location.hostname.split('.')[1].toLowerCase(),
 document.config['params'] = qJSON(document.location.hash)
+document.config['params_string'] = JSON.stringify(qJSON(document.location.hash))
+document.config['hash'] = location.hash
 
 
 document.getElementById('brand').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
@@ -604,3 +606,7 @@ var animateWorld = function(){
         })
     })
 }
+
+var dataLayer = []
+console.log('push to dataLayer', document.config)
+dataLayer.push(document.config)

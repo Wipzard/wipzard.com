@@ -12,7 +12,7 @@ document.config = {
                 price_detail: 'per month',
                 header: 'Try it for a couple of days',
                 description: `2 day trial`,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" name="0.99" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="EJCPBHYL7RNGU">
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -43,11 +43,11 @@ document.config = {
                 paypal_item_id: 'WYEAR',
                 saving: '',
                 days: 30,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="3.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="H48PSX2BZGE52">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                <input type="image" name="main2" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" name="img" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>                
                 `
             },
@@ -72,7 +72,7 @@ document.config = {
                 period: 'per year',
                 saving: '(Save $11.89)',
                 days: 30,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="35.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="G357XWMX4CENA">
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -149,7 +149,7 @@ document.config = {
                 price_detail: 'per month',
                 header: 'Try it for a couple of days',
                 description: `2 day trial`,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="0.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="S45MTZ53CY9AN">
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
@@ -179,11 +179,11 @@ document.config = {
                 paypal_item_id: 'WYEAR',
                 saving: '',
                 days: 30,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="3.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="93M7A5PCYM7ZU">
-                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                <input type="image" name="input" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" name="img" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
                 `
             },
@@ -208,7 +208,7 @@ document.config = {
                 period: 'per year',
                 saving: '(Save $11.89)',
                 days: 30,
-                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="35.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="6MV9T5YELFHE4">
                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
