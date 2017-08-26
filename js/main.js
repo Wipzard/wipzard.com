@@ -430,6 +430,7 @@ if (has('activate')) {
                         }
                         setTimeout(function () {
                             document.getElementById('connectline').classList.add('green')
+                            hideParts(['calltoaction'])
                             // document.getElementById('statusmessage').innerHTML = "Service"
                             fillFields(postjson, check_symbol)
                         }, 4000)
@@ -478,7 +479,8 @@ if (has('activate')) {
                         }
                         document.getElementById('status').innerHTML = check_symbol + '<img class="ipactivation" src="/images/30.gif" />'
                         setTimeout(function () {
-                            document.getElementById('connectline').classList.add('green')                            
+                            document.getElementById('connectline').classList.add('green')   
+                            hideParts(['calltoaction'])                            
                             fillFields(json, check_symbol_thumb, bad_check_symbol)
                         }, delay)
                     })
