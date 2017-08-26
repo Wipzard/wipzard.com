@@ -485,7 +485,7 @@ if (has('activate')) {
                         }, delay)
                     })
                 } else {
-                    hideParts(['activationcode', 'activationexpire'])
+                    hideParts(['calltoaction', 'activationcode', 'activationexpire'])
                     fillFields(json, check_symbol_thumb, bad_check_symbol)
                 }
                 showParts(['setup'])
