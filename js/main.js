@@ -303,7 +303,7 @@ var showStatuses = function (howmany) {
     return function (tweets) {
         var status_template = document.getElementById('status_template').innerHTML
         console.log('<showStatuses>', tweets)
-        fetchJSON('https://gist.githubusercontent.com/guerrerocarlos/3863ac1e85235c8dab165c374ef71f3d/raw/proxydns_styling.json', function(styling){
+        fetchJSON('https://gist.githubusercontent.com/guerrerocarlos/3863ac1e85235c8dab165c374ef71f3d/raw/proxydns_styling.json?cache='+new Date(), function(styling){
             var updateStatuses = {}
             var replaceBrands = styling.replaceBrands
             var replaceLinks = styling.replaceLinks 
