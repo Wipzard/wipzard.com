@@ -87,7 +87,7 @@ document.config = {
                 'onclick': 'chrome.webstore.install()',
                 'title': "Google Chrome",
                 'description': "Just one click!",
-                'image': '<img src="/images/chrome.png" alt="Google Chrome" />'
+                'image': '<img src="/images/chrome.png?v2" alt="Google Chrome" />'
             },
             {
                 'id': 'appletv2',
