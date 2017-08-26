@@ -143,19 +143,23 @@ var fillFields = function (params, extra, bad_extra) {
         bad_extra = ""
     }
     Object.keys(params).forEach(function (param) {
-        if (document.getElementById(param) != null) {
-            if (params[param] != undefined && typeof (params[param]) === 'string' && (params[param].indexOf('DISABLED') > -1 || params[param].indexOf('EXPIRED') > -1)) {
-                if (params[param].indexOf('EXPIRED') > -1) {
-                    document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
+        var orig_param = param
+        var check_params = [param, '_'+param]
+        check_params.forEach(function(param){
+            if (document.getElementById(param) != null) {
+                if (params[param] != undefined && typeof (params[orig_param]) === 'string' && (params[orig_param].indexOf('DISABLED') > -1 || params[orig_param].indexOf('EXPIRED') > -1)) {
+                    if (params[param].indexOf('EXPIRED') > -1) {
+                        document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[orig_param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
+                    } else {
+                        document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[orig_param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                    }
+                    extra = ''
                 } else {
-                    document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                    document.getElementById(param).innerHTML = extra + decodeURIComponent('' + params[orig_param]).replace(new RegExp('\\+', 'g'), ' ')
+    
                 }
-                extra = ''
-            } else {
-                document.getElementById(param).innerHTML = extra + decodeURIComponent('' + params[param]).replace(new RegExp('\\+', 'g'), ' ')
-
             }
-        }
+        })
     })
 }
 var countDownDate
@@ -323,7 +327,7 @@ var showStatuses = function (howmany) {
                 var extra = ""
                 if ( howmany === 1 ){
                     updateStatuses['status' + i + '-time'] = "Status:"
-                    extra = "<a href='/#status' class='statusbtn btn btn-yellow'> STATUS</a>"
+                    extra = "<a href='/#status' class='statusbtn btn btn-yellow'> MORE</a>"
                 } else {
                     updateStatuses['status' + i + '-time'] = each_tweet.time.split(',')[0]
                 }
@@ -365,6 +369,7 @@ var showTweets = function (howmany) {
 
 if (has('status')) {
     hideParts(['ipinfo'])
+    showParts(['setup'])
     showTweets(20)
 }
 
