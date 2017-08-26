@@ -84,7 +84,7 @@ document.config = {
         'setup': [
             {
                 'id': 'chrome',
-                'onclick': 'chrome.webstore.install()',
+                'onclick': 'installChromeExtension()',
                 'title': "Google Chrome",
                 'description': "Just one click!",
                 'image': '<img src="/images/chrome.png?v2" alt="Google Chrome" />'
