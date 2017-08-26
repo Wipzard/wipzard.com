@@ -2,7 +2,7 @@ var log = console.log // function () {}
 log('location:', document.location)
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
 var local_color = "black"
-var servers_colors = {"US": "#ffa900"}
+var servers_colors = {"US": "#e29600", "GB": "#e29600", "DE": "#e29600"}
 
 var installChromeExtension = function () {
     console.log('<installChromeExtension>')
@@ -36,8 +36,11 @@ var animateWorld = function (animate) {
                     return response.json()
                 }).then(function (server) {
                     console.log('>>SERVER', server)
-                    servers.push(server.country_name)
-                    fillFields({servers: servers.join(', ')+'  '})
+                    servers.push(server.country_code)
+                    var servers_with_flags = servers.map(function(each_server){
+                        return ' <img class="flagsize" src="/flags/'+each_server.toLowerCase()+'.png" /> '
+                    })
+                    fillFields({servers: servers_with_flags.join('')})//servers.join(', ')+'  '})
                     if(animate){                            
                         drawDots([
                         [client.longitude, client.latitude, local_color],

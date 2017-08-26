@@ -183,5 +183,9 @@ p img {
 }
 
 .orange {
-    color: #ffa900
+    color: #e29600
+}
+
+.flagsize {
+    height: 30px;
 }
