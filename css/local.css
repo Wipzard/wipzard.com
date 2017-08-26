@@ -144,7 +144,7 @@ p img {
     color: grey;
 }
 .statusmessage {
-    font-size: 1.7em;
+    font-size: 1.5em;
 }
 
 .time {
@@ -172,7 +172,7 @@ p img {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 70px;
+    min-height: 70px;
 }
 .statusbtn {
     margin-left: 10px;
