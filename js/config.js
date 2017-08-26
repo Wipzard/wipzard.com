@@ -83,6 +83,13 @@ document.config = {
         },
         'setup': [
             {
+                'id': 'chrome',
+                'onclick': 'chrome.webstore.install()',
+                'title': "Google Chrome",
+                'description': "Just one click!",
+                'image': '<img src="/images/chrome.png" alt="Google Chrome" />'
+            },
+            {
                 'id': 'appletv2',
                 'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
                 'title': "AppleTV",

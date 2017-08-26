@@ -93,13 +93,13 @@ var fillFields = function (params, extra, bad_extra) {
         if (document.getElementById(param) != null) {
             if (params[param] != undefined && typeof (params[param]) === 'string' && (params[param].indexOf('DISABLED') > -1 || params[param].indexOf('EXPIRED') > -1)) {
                 if (params[param].indexOf('EXPIRED') > -1) {
-                    document.getElementById(param).innerHTML = bad_extra + (params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
+                    document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
                 } else {
-                    document.getElementById(param).innerHTML = bad_extra + (params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                    document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
                 }
                 extra = ''
             } else {
-                document.getElementById(param).innerHTML = extra + (''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
+                document.getElementById(param).innerHTML = extra + decodeURIComponent(''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
 
             }
         }
@@ -499,7 +499,13 @@ var setups = document.config[document.config.name]['setup']
 var replaced_template
 for (var each = 0; each < setups.length; each++) {
     if(setups[each].id != document.config.params['setup']){
-        replaced_template = setup_template.replace(new RegExp('NUM', 'g'), each)
+        if(setups[each].onclick !== undefined){
+            replaced_template = setup_template.replace('ONCLICKNUM', setups[each].onclick)            
+        } else {
+            replaced_template = setup_template.replace('ONCLICKNUM', 'showSetup('+each+')')
+        }
+        
+        replaced_template = replaced_template.replace(new RegExp('NUM', 'g'), each)
         document.getElementById('setups').innerHTML = document.getElementById('setups').innerHTML + replaced_template
         Object.keys(setups[each]).forEach(function (atrr) {
             update['setup' + each + '-' + atrr] = setups[each][atrr]
@@ -611,3 +617,7 @@ var animateWorld = function(){
 var dataLayer = []
 console.log('push to dataLayer', document.config)
 dataLayer.push(document.config)
+
+setInterval(function(){
+    console.log('extension isntalled?', chrome.app.isInstalled)
+}, 5000)
