@@ -73,7 +73,8 @@ td {
 }
 
 .green {
-    color: #00e600;
+    color: #00af00;
+    stroke: #00af00;
 }
 
 .smaller {
@@ -98,8 +99,12 @@ td {
     cursor: pointer;
 }
 
-.red {
+.blue {
     color: #3671ff;
+}
+
+.red {
+    color: #FF3639;
 }
 
 .big {
@@ -123,4 +128,59 @@ td {
 
 p img {
     max-height: 400px;
+}
+
+.netflixbrand {
+    color: red;
+}
+
+.good {
+    color: #00af00;;
+    text-decoration: underline;
+}
+
+.bold {
+    color: grey;
+}
+.statusmessage {
+    font-size: 1.7em;
+}
+
+.time {
+    font-size: 1.8em;
+    text-align: right;
+    margin-top: 10%;
+}
+.right {
+    text-align: right;
+}
+.statusresult {
+    font-size: 2.9em;
+    margin-left: 18px;
+}
+.installextension {
+    cursor: pointer;
+}
+.black {
+    color: black;
+}
+.sling {
+    color: #00b5d6;
+}
+.statusmessagecontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 70px;
+}
+.statusbtn {
+    margin-left: 10px;
+    margin-top: -5px;
+}
+.topipstatus {
+    font-size: 1.5em;
+}
+
+.orange {
+    color: #ffa900
 }

@@ -1,37 +1,81 @@
-var log = function(){
-}
+var log = console.log // function () {}
 log('location:', document.location)
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
+var local_color = "black"
+var servers_colors = {"US": "#ffa900"}
 
-var installChromeExtension = function(){
+var installChromeExtension = function () {
     console.log('<installChromeExtension>')
-    chrome.webstore.install('https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh', function success(su){
+    chrome.webstore.install('https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh', function success(su) {
         console.log('chrome webstore success', su)
-    }, function error(er){
+    }, function error(er) {
         console.log('chrome webstore error', er)
         document.location = 'https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh'
     })
 }
 
-document.proxyline = "blue"
 
-var requestTEXT = function(url, callback, failback){
-    window.fetch(url).then(function (response) {
-        return response.text()
+var animateWorld = function (animate) {
+    window.fetch(document.api + 'servers=available').then(function (response) {
+        return response.json()
     }).then(function (json) {
-        if(callback) callback(json)
-    }).catch(function(er){
-        if(failback) failback(er)
+        log('servers', json)
+        var now = new Date()
+        var geoipservice = 'https://freegeoip.net/json/'
+        window.fetch(geoipservice).then(function (response) {
+            return response.json()
+        }).then(function (client) {
+            console.log('client', client)
+            client.geo = [client.region_name, client.city, client.country_name] 
+            fillFields({clientgeo: client.geo.join(', ')})
+            var servers = []
+            json.result.forEach(function (each_io_server) {
+                var created = new Date(each_io_server.createdAt)
+                log('IO Server:', each_io_server.address, 'Created at:', now - created)
+                window.fetch(geoipservice + each_io_server.address).then(function (response) {
+                    return response.json()
+                }).then(function (server) {
+                    console.log('>>SERVER', server)
+                    servers.push(server.country_name)
+                    fillFields({servers: servers.join(', ')+'  '})
+                    if(animate){                            
+                        drawDots([
+                        [client.longitude, client.latitude, local_color],
+                        [server.longitude, server.latitude, servers_colors[server.country_code]]
+                         ])
+                        document.drawRoute([client.longitude, client.latitude], [server.longitude, server.latitude], 100, undefined, function () {
+                            drawDots([
+                                [client.longitude, client.latitude, local_color],
+                                [server.longitude, server.latitude, servers_colors[server.country_code]]
+                            ])
+                        })
+                    }
+                })
+            })
+        })
     })
 }
 
-var requestJSON = function(url, callback, failback){
+
+document.proxyline = "#3671ff"
+
+var requestTEXT = function (url, callback, failback) {
+    window.fetch(url).then(function (response) {
+        return response.text()
+    }).then(function (json) {
+        if (callback) callback(json)
+    }).catch(function (er) {
+        if (failback) failback(er)
+    })
+}
+
+var requestJSON = function (url, callback, failback) {
     window.fetch(url).then(function (response) {
         return response.json()
     }).then(function (json) {
-        if(callback) callback(json)
-    }).catch(function(er){
-        if(failback) failback(er)
+        if (callback) callback(json)
+    }).catch(function (er) {
+        if (failback) failback(er)
     })
 }
 
@@ -66,12 +110,12 @@ if (document.config == undefined) {
     document.config = {}
 }
 
-if(document.location.hostname.split('.').length == 2){
-    document.location.hostname = 'www.'+document.location.hostname
+if (document.location.hostname.split('.').length == 2) {
+    document.location.hostname = 'www.' + document.location.hostname
 }
 
 document.config['name'] = document.location.hostname.split('.')[1].toLowerCase(),
-document.config['params'] = qJSON(document.location.hash)
+    document.config['params'] = qJSON(document.location.hash)
 document.config['params_string'] = JSON.stringify(qJSON(document.location.hash))
 document.config['hash'] = location.hash
 
@@ -91,7 +135,7 @@ var updateHash = function () {
 }
 
 var fillFields = function (params, extra, bad_extra) {
-    console.log('<fillFields>', params)
+    // console.log('<fillFields>', params)
     if (extra == undefined) {
         extra = ""
     }
@@ -108,7 +152,7 @@ var fillFields = function (params, extra, bad_extra) {
                 }
                 extra = ''
             } else {
-                document.getElementById(param).innerHTML = extra + decodeURIComponent(''+params[param]).replace(new RegExp('\\+', 'g'), ' ')
+                document.getElementById(param).innerHTML = extra + decodeURIComponent('' + params[param]).replace(new RegExp('\\+', 'g'), ' ')
 
             }
         }
@@ -142,7 +186,8 @@ var countdown = function () {
 
 var check_symbol = ' <i class="green fa fa-check" aria-hidden="true"></i> '
 var check_symbol_thumb = ' <i class="green fa fa-thumbs-up" aria-hidden="true"></i> '
-var bad_check_symbol = ' <i class="red fa fa-thumbs-down" aria-hidden="true"></i> '
+var bad_check_symbol = ' <i class="blue fa fa-thumbs-down" aria-hidden="true"></i> '
+var normal_symbol = ' <i class="grey fa  fa-cogs" aria-hidden="true"></i> '
 var retry = 0
 
 var showParts = function (parts) {
@@ -150,8 +195,8 @@ var showParts = function (parts) {
         if (document.getElementById(id) !== null) {
             document.getElementById(id).style.display = ''
         }
-        if (document.getElementById('_'+id) !== null) {
-            document.getElementById('_'+id).style.display = ''
+        if (document.getElementById('_' + id) !== null) {
+            document.getElementById('_' + id).style.display = ''
         }
     })
 }
@@ -160,13 +205,14 @@ var hideParts = function (parts) {
         if (document.getElementById(id) !== null) {
             document.getElementById(id).style.display = 'none'
         }
-        if (document.getElementById('_'+id) !== null) {
-            document.getElementById('_'+id).style.display = 'none'
+        if (document.getElementById('_' + id) !== null) {
+            document.getElementById('_' + id).style.display = 'none'
         }
     })
 }
 var showActivationInfo = function () {
-    showParts(['activationcode', 'activationexpire'])
+    console.log('<showActivationInfo>')
+    showParts(['paymentinfocode','activationcode', 'activationexpire'])
 }
 
 var checkIp = function (ip, callback) {
@@ -175,8 +221,8 @@ var checkIp = function (ip, callback) {
     })).then(function (response) {
         return response.json()
     }).then(function (json) {
-        if(json.status === 'ENABLED'){
-            document.proxyline = '#00e600'
+        if (json.status === 'ENABLED') {
+            document.proxyline = '#00af00'
         }
         log('<checkIp>:result', json)
         if (Cookies.get('code') != undefined) {
@@ -186,7 +232,17 @@ var checkIp = function (ip, callback) {
         if (callback) {
             callback(json)
         }
-        animateWorld()
+        animateWorld(true)
+    })
+}
+
+var fetchJSON = function(url, callback, failback){
+    window.fetch(url).then(function (response) {
+        return response.json()
+    }).then(function (json) {
+        if(callback) callback(json)
+    }).catch(function(er){
+        if(failback) failback(er)
     })
 }
 
@@ -243,6 +299,75 @@ if (params.indexOf('pricing') > -1) {
     showParts(['pricing'])
 }
 
+var showStatuses = function (howmany) {
+    return function (tweets) {
+        var status_template = document.getElementById('status_template').innerHTML
+        console.log('<showStatuses>', tweets)
+        fetchJSON('https://gist.githubusercontent.com/guerrerocarlos/3863ac1e85235c8dab165c374ef71f3d/raw/proxydns_styling.json', function(styling){
+            var updateStatuses = {}
+            var replaceBrands = styling.replaceBrands
+            var replaceLinks = styling.replaceLinks 
+            tweets.forEach(function (each_tweet, i) {
+                var replaced_template = status_template.replace(new RegExp('NUM', 'g'), i)
+                var tweet = each_tweet.tweet
+                Object.keys(replaceBrands).forEach(function (each_brand) {
+                    tweet = tweet.replace(new RegExp(each_brand, 'g'), '<b class="' + replaceBrands[each_brand] + '">' + each_brand + '</b>')
+                })
+                Object.keys(replaceLinks).forEach(function (each_link) {
+                    tweet = tweet.replace(new RegExp(each_link, 'g'), replaceLinks[each_link])
+                })
+                var separate = ['on', 'in']
+                separate.forEach(function (each_separator) {
+                    tweet = tweet.replace(each_separator + ' ', '</br>' + each_separator + ' ')
+                })
+                var extra = ""
+                if ( howmany === 1 ){
+                    updateStatuses['status' + i + '-time'] = "Status:"
+                    extra = "<a href='/#status' class='statusbtn btn btn-yellow'> STATUS</a>"
+                } else {
+                    updateStatuses['status' + i + '-time'] = each_tweet.time.split(',')[0]
+                }
+                updateStatuses['status' + i + '-message'] = tweet + extra
+                updateStatuses['status' + i + '-image'] = '<img src=' + each_tweet.author_data.profile_image_2x + ' />'
+                updateStatuses['status' + i + '-result'] = normal_symbol
+                if (tweet.indexOf('not working') > -1) {
+                    updateStatuses['status' + i + '-result'] = bad_check_symbol
+                }
+                if (tweet.indexOf('working good') > -1) {
+                    updateStatuses['status' + i + '-result'] = check_symbol_thumb
+                }
+                document.getElementById('statuscontainer').innerHTML = document.getElementById('statuscontainer').innerHTML + replaced_template
+            })
+            document.getElementById('statuscontainer').style.display = ''
+            fillFields(updateStatuses)
+
+        })
+    }
+}
+
+var showTweets = function (howmany) {
+    var config = {
+        "profile": {
+            "screenName": 'proxydns_status'
+        },
+        "maxTweets": howmany,
+        "enableLinks": true,
+        "showUser": true,
+        "showTime": true,
+        "showImages": true,
+        "dataOnly": true,
+        "customCallback": showStatuses(howmany),
+        "lang": 'en'
+    };
+    console.log('getting tweets...', config)
+    twitterFetcher.fetch(config);
+}
+
+if (has('status')) {
+    hideParts(['ipinfo'])
+    showTweets(20)
+}
+
 if (has('manage')) {
     if (Cookies.get('tx') == undefined) {
         if (Cookies.get('code') == undefined) {
@@ -272,13 +397,13 @@ if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
 }
 
 if (has('activate')) {
+    showParts(['main'])
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
         log('not now nor done')
         checkIp(document.config.params['activate'], function (ip) {
             log('ip', ip)
-            if (ip.status.indexOf('ENABLED') == -1) {
-                showActivationInfo()
-
+            if (ip.status.indexOf('ENABLED') === -1) { // change back to -1
+                
                 applyCode(document.config.params['activate'], function (json) {
                     json['passcode'] = json['code']
                     var postjson = {}
@@ -298,13 +423,14 @@ if (has('activate')) {
                         json['status'] = '<img class="ipactivation" src="/images/30.gif" />'
                         fillFields(json, check_symbol)
                         log('json??', json)
-                        document.getElementById('statusmessage').innerHTML = "Activating..."
+                        // document.getElementById('statusmessage').innerHTML = "Activating..."
                         var delay = 4000
                         if (json.status === 'EXPIRED') {
                             delay = 1
                         }
                         setTimeout(function () {
-                            document.getElementById('statusmessage').innerHTML = "Service"
+                            document.getElementById('connectline').classList.add('green')
+                            // document.getElementById('statusmessage').innerHTML = "Service"
                             fillFields(postjson, check_symbol)
                         }, 4000)
                     } else {
@@ -320,6 +446,8 @@ if (has('activate')) {
                     showParts(['pricing'])
                 })
             } else {
+                showActivationInfo()
+                
                 getTx(document.config.params['activate'], function (tx) {
                     log('tx', tx)
                     if (tx != undefined) {
@@ -350,7 +478,7 @@ if (has('activate')) {
                         }
                         document.getElementById('status').innerHTML = check_symbol + '<img class="ipactivation" src="/images/30.gif" />'
                         setTimeout(function () {
-                            document.getElementById('statusmessage').innerHTML = "Service"
+                            document.getElementById('connectline').classList.add('green')                            
                             fillFields(json, check_symbol_thumb, bad_check_symbol)
                         }, delay)
                     })
@@ -375,36 +503,39 @@ if (document.config.params['logout'] != undefined) {
     Cookies.remove('tx');
     Cookies.remove('expiration');
     document.location = "/"
-}    
+}
 
 if (document.config.params['setup'] != undefined) {
     // hideParts(['manage'])
-    var converter = new showdown.Converter()    
+    var converter = new showdown.Converter()
     hideParts(['ipinfo'])
     showParts(['setup', 'setupcontent'])
     log('>>>', document.config[document.config.name])
-    document.config[document.config.name].setup.forEach(function(each_setup){
-        if(each_setup.id === document.config.params['setup']){
-            if(each_setup.youtube != undefined){
+    document.config[document.config.name].setup.forEach(function (each_setup) {
+        if (each_setup.id === document.config.params['setup']) {
+            if (each_setup.youtube != undefined) {
                 document.getElementById('_setupvideo').src = each_setup.youtube
-                showParts(['setupvideo']) 
+                showParts(['setupvideo'])
             }
         }
     })
     // if(document.config[document.name].setup[document.config.params['setup']].youtube != undefined){
     //     showParts(['setupvideo'])    
     // }
-    requestTEXT('/md/'+document.config.params['setup']+ '.md', function(text){
-        var html      = converter.makeHtml(text);
-        showParts(['setupcontainer']) 
-        
-        fillFields({'setuptitle': 'Other Setup Instructions',
-    'setupcontent': html})
+    requestTEXT('/md/' + document.config.params['setup'] + '.md', function (text) {
+        var html = converter.makeHtml(text);
+        showParts(['setupcontainer'])
+
+        fillFields({
+            'setuptitle': 'Other Setup Instructions',
+            'setupcontent': html
+        })
         log(html)
     })
 }
 
 if (document.config.params['tx'] != undefined) {
+    animateWorld(false)
     hide_manage = true
     hideParts(['manage'])
     log('show logout')
@@ -412,7 +543,7 @@ if (document.config.params['tx'] != undefined) {
     log('config', document.config)
     if (document.config.params['amt'] != undefined) {
         log('==> show payment info!')
-        document.getElementById('paymentinfo').style.display = ''
+        showParts(['paymentinfo', 'paymentinfocode'])
         showParts(['logout'])
     }
 
@@ -465,7 +596,7 @@ if (document.config.params['tx'] != undefined) {
             log(json)
             fillFields(json, check_symbol)
         }).catch(function () {
-            if (retry < 10) {
+            if (retry < 12) {
                 setTimeout(checkTX, 1000 * retry)
             } else {
                 showParts(['txhelp'])
@@ -481,6 +612,7 @@ if (document.config.params['tx'] != undefined) {
 if (Object.keys(document.config.params).length == 0) {
     showParts(['main', 'setup'])
     checkIp(Cookies.get('code'))
+    showTweets(1)
 }
 
 var try_plan = document.config[document.config.name]['plans']['try']
@@ -497,23 +629,23 @@ for (var each_plan = 1; each_plan <= 2; each_plan++) {
     document.getElementById('plans').innerHTML = document.getElementById('plans').innerHTML + replaced_template
 }
 
-var showSetup = function(num){
+var showSetup = function (num) {
     log('showSetup', setups[num])
     window.scrollTo(0, 0);
-    document.location = '#setup='+setups[num].id
+    document.location = '#setup=' + setups[num].id
 }
 
 var setup_template = document.getElementById('setup_template').innerHTML
 var setups = document.config[document.config.name]['setup']
 var replaced_template
 for (var each = 0; each < setups.length; each++) {
-    if(setups[each].id != document.config.params['setup']){
-        if(setups[each].onclick !== undefined){
-            replaced_template = setup_template.replace('ONCLICKNUM', setups[each].onclick)            
+    if (setups[each].id != document.config.params['setup']) {
+        if (setups[each].onclick !== undefined) {
+            replaced_template = setup_template.replace('ONCLICKNUM', setups[each].onclick)
         } else {
-            replaced_template = setup_template.replace('ONCLICKNUM', 'showSetup('+each+')')
+            replaced_template = setup_template.replace('ONCLICKNUM', 'showSetup(' + each + ')')
         }
-        
+
         replaced_template = replaced_template.replace(new RegExp('NUM', 'g'), each)
         document.getElementById('setups').innerHTML = document.getElementById('setups').innerHTML + replaced_template
         Object.keys(setups[each]).forEach(function (atrr) {
@@ -554,11 +686,12 @@ if (Cookies.get('code') === undefined &&
 
 // world animation and stuff:
 
-var drawDots = function(data){
+var circle_layer_count = 0
+var drawDots = function (data) {
     log('<drawDots>', data)
-    airports_dots = svg.selectAll("circle")
+    airports_dots = svg.selectAll("circle"+circle_layer_count)
         .data(data)
-    
+
     airports_dots.enter()
         .append("circle")
         .attr("cx", function (d) {
@@ -570,7 +703,7 @@ var drawDots = function(data){
         .attr("r", "5px")
         .attr('stroke', 'rgba(0,0,0,0)')
         .attr('stroke-width', '10px')
-    
+
         .attr("fill", document.proxyline)
         .transition().delay(function (d, i) {
             return i * 4
@@ -587,46 +720,16 @@ var drawDots = function(data){
         .attr("r", "5px")
         .attr('stroke', 'rgba(0,0,0,0)')
         .attr('stroke-width', '10px')
-    
-        .attr("fill", 'blue')
+
+        .attr("fill", 'grey')
         .transition().delay(function (d, i) {
             return i * 4
         })
-        .attr("fill", function(d){
+        .attr("fill", function (d) {
             log('d', d)
             return d[2]
         })
 }
 
-var animateWorld = function(){
-    window.fetch(document.api + 'servers=available').then(function (response) {
-        return response.json()
-    }).then(function (json) {
-        log('servers', json)
-        var now = new Date()
-        var geoipservice = 'https://freegeoip.net/json/'
-        window.fetch(geoipservice).then(function (response) {
-            return response.json()
-        }).then(function (client) {
-            json.result.forEach(function (each_io_server) {
-                var created = new Date(each_io_server.createdAt)
-                log('IO Server:', each_io_server.address, 'Created at:', now - created)
-                window.fetch(geoipservice+each_io_server.address).then(function (response) {
-                    return response.json()
-                }).then(function (server) {
-                    document.drawRoute([client.longitude, client.latitude], [server.longitude, server.latitude], 100, undefined, function(){
-                        drawDots([[client.longitude, client.latitude, document.proxyline],[server.longitude, server.latitude, document.proxyline]])
-                    })
-                })
-            })
-        })
-    })
-}
-
 var dataLayer = []
-console.log('push to dataLayer', document.config)
 dataLayer.push(document.config)
-
-setInterval(function(){
-    console.log('extension isntalled?', chrome.app.isInstalled)
-}, 5000)

@@ -68,9 +68,9 @@ document.config = {
                                     
                             </ul>
                                     `,
-                price: '$35.99',
-                period: 'per year',
-                saving: '(Save $11.89)',
+                price: '$2.99',
+                period: 'per month',
+                saving: '($35.99 billed once per year, save $11.89)',
                 days: 30,
                 paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="35.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">

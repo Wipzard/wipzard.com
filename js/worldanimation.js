@@ -176,7 +176,7 @@ d3.json("world-110m.json", function (error, world) {
         //   trayectory = [origin, [xx*10 , -1*diff*10],[0 , -1000], [-xx*10 , diff*10], destination]
         // }
 
-        var stroke_width = 1
+        var stroke_width = 2
         var tweenfunction = function () {
             var len = this.getTotalLength();
             return function (t) {
@@ -196,7 +196,7 @@ d3.json("world-110m.json", function (error, world) {
                 };
             }
             distance = distance * 2
-            stroke_width = 0.1
+            stroke_width = 0.2
         }
         var duration = 40 * distance
         svg.append('path')
@@ -204,6 +204,7 @@ d3.json("world-110m.json", function (error, world) {
             .attr("stroke", document.proxyline)
             .attr("stroke-width", stroke_width)
             .attr("fill", "none")
+            .attr("id", "connectline")
             .attr("stroke-dasharray", "0,1")
             .on("mouseover", function (d) {
                 var stops = []
