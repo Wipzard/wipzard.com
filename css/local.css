@@ -137,7 +137,6 @@ p img {
 
 .good {
     color: #00af00;;
-    text-decoration: underline;
 }
 
 .bold {
@@ -161,6 +160,7 @@ p img {
 }
 .installextension {
     cursor: pointer;
+    text-decoration: underline;
 }
 .black {
     color: black;
