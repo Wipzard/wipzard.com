@@ -5,11 +5,11 @@ document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/mast
 
 var installChromeExtension = function(){
     console.log('<installChromeExtension>')
-    chrome.webstore.install('https://chrome.google.com/webstore/detail/proxydns/jkgoidcneenbbjbncgegpledfdolbodh', function success(su){
+    chrome.webstore.install('https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh', function success(su){
         console.log('chrome webstore success', su)
     }, function error(er){
         console.log('chrome webstore error', er)
-        document.location = 'https://chrome.google.com/webstore/detail/proxydns/jkgoidcneenbbjbncgegpledfdolbodh'
+        document.location = 'https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh'
     })
 }
 
