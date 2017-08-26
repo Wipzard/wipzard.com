@@ -150,16 +150,15 @@ var fillFields = function (params, extra, bad_extra) {
         var check_params = [param, '_'+param]
         check_params.forEach(function(param){
             if (document.getElementById(param) != null) {
-                if (params[param] != undefined && typeof (params[orig_param]) === 'string' && (params[orig_param].indexOf('DISABLED') > -1 || params[orig_param].indexOf('EXPIRED') > -1)) {
-                    if (params[param].indexOf('EXPIRED') > -1) {
+                if (params[orig_param] != undefined && typeof (params[orig_param]) === 'string' && (params[orig_param].indexOf('DISABLED') > -1 || params[orig_param].indexOf('EXPIRED') > -1)) {
+                    if (params[orig_param].indexOf('EXPIRED') > -1) {
                         document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[orig_param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
                     } else {
-                        document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[orig_param]) + ' <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                        document.getElementById(param).innerHTML = bad_extra + '<b class="blue">' +decodeURIComponent(params[orig_param]) + '</b> <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
                     }
                     extra = ''
                 } else {
                     document.getElementById(param).innerHTML = extra + decodeURIComponent('' + params[orig_param]).replace(new RegExp('\\+', 'g'), ' ')
-    
                 }
             }
         })
@@ -404,9 +403,16 @@ if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
     })
 }
 
+var mapLinesToGreen = function(){
+    document.querySelectorAll('.connectline').forEach(function(each_line) {
+        console.log('each_line', each_line)
+        each_line.classList.add('green')
+    })
+}
+
 if (has('activate')) {
-    showParts(['main'])
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
+        showParts(['main'])    
         log('not now nor done')
         checkIp(document.config.params['activate'], function (ip) {
             log('ip', ip)
@@ -438,7 +444,7 @@ if (has('activate')) {
                         }
                         hideParts(['calltoaction'])
                         setTimeout(function () {
-                            document.getElementById('connectline').classList.add('green')
+                            mapLinesToGreen()
                             // document.getElementById('statusmessage').innerHTML = "Service"
                             fillFields(postjson, check_symbol)
                         }, 4000)
@@ -474,6 +480,8 @@ if (has('activate')) {
         })
     } else {
         if (Cookies.get('code') !== undefined) {
+            showParts(['main'])    
+        
             checkIp(Cookies.get('code'), function (json) {
                 log('-status:', json)
                 if (json.status.indexOf('ENABLED') == -1) {
@@ -485,10 +493,10 @@ if (has('activate')) {
                             delay = 500
                             check_symbol = ''
                         }
-                        document.getElementById('status').innerHTML = check_symbol + '<img class="ipactivation" src="/images/30.gif" />'
+                        fillFields({status: check_symbol + '<img class="ipactivation" src="/images/30.gif" /> (please wait)'})
                         hideParts(['calltoaction'])                            
                         setTimeout(function () {
-                            document.getElementById('connectline').classList.add('green')   
+                            mapLinesToGreen()
                             fillFields(json, check_symbol_thumb, bad_check_symbol)
                         }, delay)
                     })

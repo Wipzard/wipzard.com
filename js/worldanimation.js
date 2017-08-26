@@ -204,7 +204,7 @@ d3.json("world-110m.json", function (error, world) {
             .attr("stroke", document.proxyline)
             .attr("stroke-width", stroke_width)
             .attr("fill", "none")
-            .attr("id", "connectline")
+            .attr("class", "connectline")
             .attr("stroke-dasharray", "0,1")
             .on("mouseover", function (d) {
                 var stops = []
