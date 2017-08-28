@@ -324,7 +324,7 @@ var showStatuses = function (howmany) {
                 })
                 var separate = ['on', 'in']
                 separate.forEach(function (each_separator) {
-                    tweet = tweet.replace(each_separator + ' ', '<br class="hidden-xs" />' + each_separator + ' ')
+                    tweet = tweet.replace(' '+each_separator + ' ', '<br class="hidden-xs" />' + each_separator + ' ')
                 })
                 var extra = ""
                 if ( howmany === 1 ){
