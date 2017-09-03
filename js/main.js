@@ -412,7 +412,8 @@ var mapLinesToGreen = function(){
 
 if (has('activate')) {
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
-        showParts(['main'])    
+        showParts(['main'])
+        hideParts(['worldmap'])    
         log('not now nor done')
         checkIp(document.config.params['activate'], function (ip) {
             log('ip', ip)
@@ -553,7 +554,6 @@ if (document.config.params['setup'] != undefined) {
 }
 
 if (document.config.params['tx'] != undefined) {
-    animateWorld(false)
     hide_manage = true
     hideParts(['manage'])
     log('show logout')
@@ -607,7 +607,7 @@ if (document.config.params['tx'] != undefined) {
                     log(json)
                     fillFields(json, check_symbol_thumb, bad_check_symbol)
                 })
-
+    
 
             })
 
@@ -623,6 +623,8 @@ if (document.config.params['tx'] != undefined) {
         })
     }
     checkTX()
+    animateWorld(true)
+    
 }
 
 
@@ -630,6 +632,7 @@ if (document.config.params['tx'] != undefined) {
 if (Object.keys(document.config.params).length == 0) {
     showParts(['main', 'setup'])
     checkIp(Cookies.get('code'))
+    hideParts(['ipinfo'])
     showTweets(1)
 }
 
