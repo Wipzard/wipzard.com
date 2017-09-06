@@ -12,7 +12,7 @@ body {
     background: #fdce45;
     border-radius: 8px;
     padding: 4px;
-    max-width: 440px;
+    max-width: 330px;
     float: right;
 }
 
@@ -27,7 +27,7 @@ body {
 }
 
 .lading-image {
-    margin-top: 10%;
+    /* margin-top: 10%; */
 }
 
 .nav-logo a {
@@ -221,4 +221,12 @@ p img {
 
 .flagsize {
     height: 30px;
+}
+
+#calltoaction {
+    font-size: 25px;
+}
+
+#bottomstatus {
+    margin-top: 100px;
 }

@@ -59,7 +59,7 @@ d3.select(window)
         } else {
             targetWidth = 960 * amplify
         }
-        svg.attr("width", targetWidth);
+        svg.attr("width", "100%");
         // svg.attr("height", targetWidth);
     });
 

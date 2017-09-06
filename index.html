@@ -6,11 +6,10 @@
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh">
 
   <meta name="description" content="Feel the freedom, no registration required.">
-  <meta name="author" content="devs@wipzard.com">
+  <meta name="author" content="carlos@carlosguerrero.com">
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Geo-unblocked Internet" />
   <meta property="og:description" content="Feel the freedom, no login/registration required." />
-  <meta property="og:url" content="" />
   <meta property="og:image" content="/images/og.png" />
   <meta property="og:site_name" content="Feel the freedom" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -114,7 +113,7 @@
             <!-- </div> -->
             <table id="entercode" class="vcenter" style="display: none;">
               <tr id="activationcodeinput" style="">
-                <td class="activationlefttable">Enter activation code here:</td>
+                <td class="activationlefttable">Activation code:</td>
                 <td class="activationrighttable"><input id="codeinput" maxlength="6" size="8"></input>
                 </td>
               </tr>
@@ -148,7 +147,10 @@
     </section>
 
     <section id="" class="">
-      <div class="container" id="ipinfo">
+      <div class="container" id="welcomeloader" style="display: none;">
+        Loading...
+      </div>
+      <div class="container" id="ipinfo" style="display: none;">
         <div class="row topipstatus">
           <div class="col-xs-offset-2 col-xs-2">
             <p id="statusmessage" class="right">
@@ -237,7 +239,7 @@
           </tr> -->
         </table>
 
-        <div class="hidden-xs col-sm-12 text-center worldmap">
+        <div class="col-sm-12 text-center worldmap">
           <svg id='worldmap' viewBox="0 0 910 480" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
       </div>
@@ -262,8 +264,15 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="hero-cta">
-              <h2 id="slogan">
-              </h2>
+
+              <h1 id="welcometext">
+                Watch
+                <u><b id="servicename">NETFLIX</b></u>
+                </br> from anywhere in the World
+              </h1>
+
+              <!-- <h2 id="slogan"> -->
+              <!-- </h2> -->
 
               <a id="calltoaction" href="/#pricing" onclick="location.reload()" class="btn btn-yellow">
               
@@ -427,7 +436,13 @@
 
 
   </main>
-
+  <div class="container" id="bottomstatus" style="display: none;">
+    <div class="col-md-1">
+    </div>
+      <div class="col-md-11">
+      <div class="container" id="bottomstatuscontainer"></div>
+    </div>
+  </div>
   <footer>
     <nav>
       <div class="container">

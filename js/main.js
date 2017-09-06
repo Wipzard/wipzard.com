@@ -2,7 +2,30 @@ var log = console.log // function () {}
 log('location:', document.location)
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
 var local_color = "black"
-var servers_colors = {"US": "#e29600", "GB": "#e29600", "DE": "#e29600"}
+var servers_colors = {
+    "US": "#e29600",
+    "GB": "#e29600",
+    "DE": "#e29600"
+}
+
+var services_names = [
+    'Netflix',
+    'Pandora',
+    'Spotify',
+    'Hulu',
+    'HBO NOW',
+    'HBO GO',
+    'CNN',
+]
+
+window.fetch('https://gist.githubusercontent.com/guerrerocarlos/170fe2efb7f4c48e3e1c4693a5925b28/raw/services.json?preventCache=' + new Date()).then(function (response) {
+    return response.json()
+}).then(function (services_names) {
+    setInterval(function () {
+        document.getElementById('servicename').innerHTML = services_names[parseInt(Math.random() * services_names.length)]
+    }, 1600 / 2)
+
+})
 
 var installChromeExtension = function () {
     console.log('<installChromeExtension>')
@@ -26,8 +49,10 @@ var animateWorld = function (animate) {
             return response.json()
         }).then(function (client) {
             console.log('client', client)
-            client.geo = [client.region_name, client.city, client.country_name] 
-            fillFields({clientgeo: client.geo.join(', ')})
+            client.geo = [client.region_name, client.city, client.country_name]
+            fillFields({
+                clientgeo: client.geo.join(', ')
+            })
             var servers = []
             json.result.forEach(function (each_io_server) {
                 var created = new Date(each_io_server.createdAt)
@@ -37,15 +62,17 @@ var animateWorld = function (animate) {
                 }).then(function (server) {
                     console.log('>>SERVER', server)
                     servers.push(server.country_code)
-                    var servers_with_flags = servers.map(function(each_server){
-                        return ' <img class="flagsize" src="/flags/'+each_server.toLowerCase()+'.png" /> '
+                    var servers_with_flags = servers.map(function (each_server) {
+                        return ' <img class="flagsize" src="/flags/' + each_server.toLowerCase() + '.png" /> '
                     })
-                    fillFields({servers: servers_with_flags.join('')})//servers.join(', ')+'  '})
-                    if(animate){                            
+                    fillFields({
+                        servers: servers_with_flags.join('')
+                    }) //servers.join(', ')+'  '})
+                    if (animate) {
                         drawDots([
-                        [client.longitude, client.latitude, local_color],
-                        [server.longitude, server.latitude, servers_colors[server.country_code]]
-                         ])
+                            [client.longitude, client.latitude, local_color],
+                            [server.longitude, server.latitude, servers_colors[server.country_code]]
+                        ])
                         document.drawRoute([client.longitude, client.latitude], [server.longitude, server.latitude], 100, undefined, function () {
                             drawDots([
                                 [client.longitude, client.latitude, local_color],
@@ -147,14 +174,14 @@ var fillFields = function (params, extra, bad_extra) {
     }
     Object.keys(params).forEach(function (param) {
         var orig_param = param
-        var check_params = [param, '_'+param]
-        check_params.forEach(function(param){
+        var check_params = [param, '_' + param]
+        check_params.forEach(function (param) {
             if (document.getElementById(param) != null) {
                 if (params[orig_param] != undefined && typeof (params[orig_param]) === 'string' && (params[orig_param].indexOf('DISABLED') > -1 || params[orig_param].indexOf('EXPIRED') > -1)) {
                     if (params[orig_param].indexOf('EXPIRED') > -1) {
                         document.getElementById(param).innerHTML = bad_extra + decodeURIComponent(params[orig_param]) + ' <a onclick="location.reload()" href="#pricing" class="btn enabler btn-yellow">RENEW</a>'
                     } else {
-                        document.getElementById(param).innerHTML = bad_extra + '<b class="blue">' +decodeURIComponent(params[orig_param]) + '</b> <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
+                        document.getElementById(param).innerHTML = bad_extra + '<b class="blue">' + decodeURIComponent(params[orig_param]) + '</b> <a onclick="location.reload()" href="#activate=now" class="btn enabler btn-yellow">ENABLE</a>'
                     }
                     extra = ''
                 } else {
@@ -218,7 +245,7 @@ var hideParts = function (parts) {
 }
 var showActivationInfo = function () {
     console.log('<showActivationInfo>')
-    showParts(['paymentinfocode','activationcode', 'activationexpire'])
+    showParts(['paymentinfocode', 'activationcode', 'activationexpire'])
 }
 
 var checkIp = function (ip, callback) {
@@ -242,13 +269,13 @@ var checkIp = function (ip, callback) {
     })
 }
 
-var fetchJSON = function(url, callback, failback){
+var fetchJSON = function (url, callback, failback) {
     window.fetch(url).then(function (response) {
         return response.json()
     }).then(function (json) {
-        if(callback) callback(json)
-    }).catch(function(er){
-        if(failback) failback(er)
+        if (callback) callback(json)
+    }).catch(function (er) {
+        if (failback) failback(er)
     })
 }
 
@@ -309,10 +336,12 @@ var showStatuses = function (howmany) {
     return function (tweets) {
         var status_template = document.getElementById('status_template').innerHTML
         console.log('<showStatuses>', tweets)
-        fetchJSON('https://gist.githubusercontent.com/guerrerocarlos/3863ac1e85235c8dab165c374ef71f3d/raw/proxydns_styling.json?cache='+new Date(), function(styling){
+        var container = 'statuscontainer'
+
+        fetchJSON('https://gist.githubusercontent.com/guerrerocarlos/3863ac1e85235c8dab165c374ef71f3d/raw/proxydns_styling.json?cache=' + new Date(), function (styling) {
             var updateStatuses = {}
             var replaceBrands = styling.replaceBrands
-            var replaceLinks = styling.replaceLinks 
+            var replaceLinks = styling.replaceLinks
             tweets.forEach(function (each_tweet, i) {
                 var replaced_template = status_template.replace(new RegExp('NUM', 'g'), i)
                 var tweet = each_tweet.tweet
@@ -324,10 +353,10 @@ var showStatuses = function (howmany) {
                 })
                 var separate = ['on', 'in']
                 separate.forEach(function (each_separator) {
-                    tweet = tweet.replace(' '+each_separator + ' ', '<br class="hidden-xs" />' + each_separator + ' ')
+                    tweet = tweet.replace(' ' + each_separator + ' ', '<br class="hidden-xs" />' + each_separator + ' ')
                 })
                 var extra = ""
-                if ( howmany === 1 ){
+                if (howmany === 1) {
                     updateStatuses['status' + i + '-time'] = "Status:"
                     extra = "<a href='/#status' class='statusbtn btn btn-yellow'> MORE</a>"
                 } else {
@@ -342,9 +371,13 @@ var showStatuses = function (howmany) {
                 if (tweet.indexOf('working good') > -1) {
                     updateStatuses['status' + i + '-result'] = check_symbol_thumb
                 }
-                document.getElementById('statuscontainer').innerHTML = document.getElementById('statuscontainer').innerHTML + replaced_template
+                if (howmany == 1) {
+                    container = 'bottomstatuscontainer'
+                    document.getElementById('bottomstatus').style.display = ''
+                }
+                document.getElementById(container).innerHTML = document.getElementById(container).innerHTML + replaced_template
+                document.getElementById(container).style.display = ''
             })
-            document.getElementById('statuscontainer').style.display = ''
             fillFields(updateStatuses)
 
         })
@@ -403,22 +436,23 @@ if (has('terms') || has('terms-of-use') || has('terms-of-service')) {
     })
 }
 
-var mapLinesToGreen = function(){
-    document.querySelectorAll('.connectline').forEach(function(each_line) {
+var mapLinesToGreen = function () {
+    document.querySelectorAll('.connectline').forEach(function (each_line) {
         console.log('each_line', each_line)
         each_line.classList.add('green')
     })
 }
 
 if (has('activate')) {
+    showParts(['ipinfo'])
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
         showParts(['main'])
-        hideParts(['worldmap'])    
+        hideParts(['worldmap'])
         log('not now nor done')
         checkIp(document.config.params['activate'], function (ip) {
             log('ip', ip)
             if (ip.status.indexOf('ENABLED') === -1) { // change back to -1
-                
+
                 applyCode(document.config.params['activate'], function (json) {
                     json['passcode'] = json['code']
                     var postjson = {}
@@ -463,7 +497,7 @@ if (has('activate')) {
                 })
             } else {
                 showActivationInfo()
-                
+
                 getTx(document.config.params['activate'], function (tx) {
                     log('tx', tx)
                     if (tx != undefined) {
@@ -481,8 +515,8 @@ if (has('activate')) {
         })
     } else {
         if (Cookies.get('code') !== undefined) {
-            showParts(['main'])    
-        
+            showParts(['main'])
+
             checkIp(Cookies.get('code'), function (json) {
                 log('-status:', json)
                 if (json.status.indexOf('ENABLED') == -1) {
@@ -494,8 +528,10 @@ if (has('activate')) {
                             delay = 500
                             check_symbol = ''
                         }
-                        fillFields({status: check_symbol + '<img class="ipactivation" src="/images/30.gif" /> (please wait)'})
-                        hideParts(['calltoaction'])                            
+                        fillFields({
+                            status: check_symbol + '<img class="ipactivation" src="/images/30.gif" /> (please wait)'
+                        })
+                        hideParts(['calltoaction'])
                         setTimeout(function () {
                             mapLinesToGreen()
                             fillFields(json, check_symbol_thumb, bad_check_symbol)
@@ -554,6 +590,8 @@ if (document.config.params['setup'] != undefined) {
 }
 
 if (document.config.params['tx'] != undefined) {
+    showParts(['ipinfo'])
+    
     hide_manage = true
     hideParts(['manage'])
     log('show logout')
@@ -607,7 +645,7 @@ if (document.config.params['tx'] != undefined) {
                     log(json)
                     fillFields(json, check_symbol_thumb, bad_check_symbol)
                 })
-    
+
 
             })
 
@@ -624,7 +662,7 @@ if (document.config.params['tx'] != undefined) {
     }
     checkTX()
     animateWorld(true)
-    
+
 }
 
 
@@ -710,7 +748,7 @@ if (Cookies.get('code') === undefined &&
 var circle_layer_count = 0
 var drawDots = function (data) {
     log('<drawDots>', data)
-    airports_dots = svg.selectAll("circle"+circle_layer_count)
+    airports_dots = svg.selectAll("circle" + circle_layer_count)
         .data(data)
 
     airports_dots.enter()
