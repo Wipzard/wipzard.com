@@ -86,60 +86,60 @@ document.config = {
                 'id': 'chrome',
                 'onclick': 'installChromeExtension()',
                 'title': "Google Chrome",
-                'description': "Just one click!",
+                'description': "<b>Click here</b> to install the Chrome Extension",
                 'image': '<img src="/images/chrome.png?v2" alt="Google Chrome" />'
             },
             {
                 'id': 'appletv2',
                 'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
                 'title': "AppleTV",
-                'description': "Movies without borders!",
+                'description': "Instructions to setup your AppleTV",
                 'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
             },
             {
                 'id': 'appletv',
                 'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
                 'title': "AppleTV (old version)",
-                'description': "Still rocking it?!",
+                'description': "The old AppleTV is also supported",
                 'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
             },  
             {
                 'id': 'macosx',
                 'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
                 'title': "OSX",
-                'description': "OS Unblocked!",
+                'description': "Unblock all the apps on your Mac at once",
                 'image': '<img src="/images/osx.png" alt="MacOSX" />'            
             },        
             {
                 'id': 'ios',
                 'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
                 'title': "iOS",
-                'description': "Apps unblocked!",
+                'description': "Setup ProxyDNS to Unblock your iPhone and iPad",
                 'image': '<img src="/images/ios.png" alt="iPhone" />'            
             },      
             {
                 'id': 'xboxone',
                 'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
                 'title': "XBOX ONE",
-                'description': "Gaming unlocked!",
+                'description': "Install games that are only available in another regions",
                 'image': '<img src="/images/xboxone.png" alt="Xbox One" />'            
             },
             {
                 'id': 'android',
                 'title': "Android",
-                'description': "Stream anything anywhere with your Android phone",
+                'description': "Stream geo-restricted content anywhere you want",
                 'image': '<img src="/images/android.png" alt="Android" />'            
             },
             {
                 'id': 'windows7',
                 'title': "Windows 7",
-                'description': "Limitless streaming",
+                'description': "All windows applications, unblocked at once",
                 'image': '<img src="/images/windowsold.png" alt="Windows7" />'            
             },
             {
                 'id': 'windows8',
                 'title': "Windows 8",
-                'description': "No more geo-restrictions",
+                'description': "No more geo-restrictions in your computer.",
                 'image': '<img src="/images/windows.png" alt="Windows8" />'            
             }]
     },

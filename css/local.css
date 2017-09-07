@@ -230,3 +230,17 @@ p img {
 #bottomstatus {
     margin-top: 100px;
 }
+
+.welcometable {
+    margin: 0 auto;
+}
+
+.watchtable {
+    padding-right: 10px;
+}
+
+
+.servicetable {
+    min-width: 120px;
+    text-align: left;
+}
