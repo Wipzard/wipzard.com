@@ -81,8 +81,7 @@ document.config = {
                 `
             },
         },
-        'setup': [
-            {
+        'setup': [{
                 'id': 'chrome',
                 'onclick': 'installChromeExtension()',
                 'title': "Google Chrome",
@@ -94,63 +93,64 @@ document.config = {
                 'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
                 'title': "AppleTV",
                 'description': "Instructions to setup your AppleTV",
-                'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'
             },
             {
                 'id': 'appletv',
                 'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
                 'title': "AppleTV (old version)",
                 'description': "The old AppleTV is also supported",
-                'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
-            },  
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'
+            },
             {
                 'id': 'macosx',
                 'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
                 'title': "OSX",
                 'description': "Unblock all the apps on your Mac at once",
-                'image': '<img src="/images/osx.png" alt="MacOSX" />'            
-            },        
+                'image': '<img src="/images/osx.png" alt="MacOSX" />'
+            },
             {
                 'id': 'ios',
                 'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
                 'title': "iOS",
                 'description': "Setup ProxyDNS to Unblock your iPhone and iPad",
-                'image': '<img src="/images/ios.png" alt="iPhone" />'            
-            },      
+                'image': '<img src="/images/ios.png" alt="iPhone" />'
+            },
             {
                 'id': 'xboxone',
                 'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
                 'title': "XBOX ONE",
                 'description': "Install games that are only available in another regions",
-                'image': '<img src="/images/xboxone.png" alt="Xbox One" />'            
+                'image': '<img src="/images/xboxone.png" alt="Xbox One" />'
             },
             {
                 'id': 'android',
                 'title': "Android",
                 'description': "Stream geo-restricted content anywhere you want",
-                'image': '<img src="/images/android.png" alt="Android" />'            
+                'image': '<img src="/images/android.png" alt="Android" />'
             },
             {
                 'id': 'windows7',
                 'title': "Windows 7",
                 'description': "All windows applications, unblocked at once",
-                'image': '<img src="/images/windowsold.png" alt="Windows7" />'            
+                'image': '<img src="/images/windowsold.png" alt="Windows7" />'
             },
             {
                 'id': 'windows8',
                 'title': "Windows 8",
                 'description': "No more geo-restrictions in your computer.",
-                'image': '<img src="/images/windows.png" alt="Windows8" />'            
-            }]
+                'image': '<img src="/images/windows.png" alt="Windows8" />'
+            }
+        ]
     },
     "wipzard": {
-        "gtm": 'GTM-NG5H8HH',        
+        "gtm": 'GTM-NG5H8HH',
         "slogan": '<b>Feel the freedom</b></br>No Registration Required',
         "calltoaction": 'Try it for $0.99',
         "plans": {
             "try": {
                 amount: 0.99,
-                paypal_item_id: 'ODP1',
+                paypal_item_id: 'W2D',
                 days: 2,
                 price: '$0.99',
                 price_detail: 'per month',
@@ -205,15 +205,15 @@ document.config = {
                                     <li>
                                     <small>
                                     <b>Browser:</b> Chrome Extension
-                                    </br><b>Devices:</b> AppleTV, XBOX, iPad, iPhone, PS4, Nexus (using DNS).
+                                    </br><b>Devices:</b> AppleTV, Android, XBOX, iPad, iPhone, PS4, Nexus, etc.
                                     </small>
                                     </li>
                                     
                             </ul>
                                     `,
-                price: '$35.99',
-                period: 'per year',
-                saving: '(Save $11.89)',
+                price: '$2.99',
+                period: 'per month',
+                saving: '($35.99 billed once per year, save $11.89)',
                 days: 30,
                 paypal: `<form action="https://www.paypal.com/cgi-bin/webscr" name="35.99" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
@@ -224,59 +224,66 @@ document.config = {
                 `
             },
         },
-        'setup': [
-        {
-            'id': 'appletv2',
-            'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
-            'title': "AppleTV",
-            'description': "Movies without borders!",
-            'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
-        },
-        {
-            'id': 'appletv',
-            'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
-            'title': "AppleTV (old version)",
-            'description': "Still rocking it?!",
-            'image': '<img src="/images/appletv.png" alt="AppleTV" />'            
-        },  
-        {
-            'id': 'macosx',
-            'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
-            'title': "OSX",
-            'description': "OS Unblocked!",
-            'image': '<img src="/images/osx.png" alt="MacOSX" />'            
-        },        
-        {
-            'id': 'ios',
-            'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
-            'title': "iOS",
-            'description': "Apps unblocked!",
-            'image': '<img src="/images/ios.png" alt="iPhone" />'            
-        },      
-        {
-            'id': 'xboxone',
-            'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
-            'title': "XBOX ONE",
-            'description': "Gaming unlocked!",
-            'image': '<img src="/images/xboxone.png" alt="Xbox One" />'            
-        },
-        {
-            'id': 'android',
-            'title': "Android",
-            'description': "Stream anything anywhere with your Android phone",
-            'image': '<img src="/images/android.png" alt="Android" />'            
-        },
-        {
-            'id': 'windows7',
-            'title': "Windows 7",
-            'description': "Limitless streaming",
-            'image': '<img src="/images/windowsold.png" alt="Windows7" />'            
-        },
-        {
-            'id': 'windows8',
-            'title': "Windows 8",
-            'description': "No more geo-restrictions",
-            'image': '<img src="/images/windows.png" alt="Windows8" />'            
-        }]
+        'setup': [{
+                'id': 'chrome',
+                'onclick': 'installChromeExtension()',
+                'title': "Google Chrome",
+                'description': "<b>Click here</b> to install the Chrome Extension",
+                'image': '<img src="/images/chrome.png?v2" alt="Google Chrome" />'
+            },
+            {
+                'id': 'appletv2',
+                'youtube': 'https://www.youtube.com/embed/16KdQpir4Kg',
+                'title': "AppleTV",
+                'description': "Instructions to setup your AppleTV",
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'
+            },
+            {
+                'id': 'appletv',
+                'youtube': 'https://www.youtube.com/embed/c2dW3rPwV_Y',
+                'title': "AppleTV (old version)",
+                'description': "The old AppleTV is also supported",
+                'image': '<img src="/images/appletv.png" alt="AppleTV" />'
+            },
+            {
+                'id': 'macosx',
+                'youtube': 'https://www.youtube.com/embed/IV18ufPrXqw',
+                'title': "OSX",
+                'description': "Unblock all the apps on your Mac at once",
+                'image': '<img src="/images/osx.png" alt="MacOSX" />'
+            },
+            {
+                'id': 'ios',
+                'youtube': 'https://www.youtube.com/embed/q8OcNvgnt00',
+                'title': "iOS",
+                'description': "Setup ProxyDNS to Unblock your iPhone and iPad",
+                'image': '<img src="/images/ios.png" alt="iPhone" />'
+            },
+            {
+                'id': 'xboxone',
+                'youtube': 'https://www.youtube.com/embed/IkOnYywix0o',
+                'title': "XBOX ONE",
+                'description': "Install games that are only available in another regions",
+                'image': '<img src="/images/xboxone.png" alt="Xbox One" />'
+            },
+            {
+                'id': 'android',
+                'title': "Android",
+                'description': "Stream geo-restricted content anywhere you want",
+                'image': '<img src="/images/android.png" alt="Android" />'
+            },
+            {
+                'id': 'windows7',
+                'title': "Windows 7",
+                'description': "All windows applications, unblocked at once",
+                'image': '<img src="/images/windowsold.png" alt="Windows7" />'
+            },
+            {
+                'id': 'windows8',
+                'title': "Windows 8",
+                'description': "No more geo-restrictions in your computer.",
+                'image': '<img src="/images/windows.png" alt="Windows8" />'
+            }
+        ]
     }
 }

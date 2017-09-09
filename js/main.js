@@ -21,20 +21,28 @@ var services_names = [
 window.fetch('https://gist.githubusercontent.com/guerrerocarlos/170fe2efb7f4c48e3e1c4693a5925b28/raw/services.json?preventCache=' + new Date()).then(function (response) {
     return response.json()
 }).then(function (services_names) {
+    var count = 0
     setInterval(function () {
-        document.getElementById('servicename').innerHTML = services_names[parseInt(Math.random() * services_names.length)]
+        document.getElementById('servicename').innerHTML = services_names[++count]
+        if(count > services_names.length){
+            count = 0
+        }
     }, 1600 / 2)
 
 })
 
 var installChromeExtension = function () {
     console.log('<installChromeExtension>')
-    chrome.webstore.install('https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh', function success(su) {
-        console.log('chrome webstore success', su)
-    }, function error(er) {
-        console.log('chrome webstore error', er)
-        document.location = 'https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh'
-    })
+
+    // if(document.config.name === 'proxydns'){
+        chrome.webstore.install('https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh', function success(su) {
+            console.log('chrome webstore success', su)
+        }, function error(er) {
+            console.log('chrome webstore error', er)
+            document.location = 'https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh'
+        })
+    // } 
+
 }
 
 
@@ -149,6 +157,13 @@ document.config['name'] = document.location.hostname.split('.')[1].toLowerCase()
 document.config['params_string'] = JSON.stringify(qJSON(document.location.hash))
 document.config['hash'] = location.hash
 
+if(document.config.name === 'proxydns'){
+    window.$crisp=[];window.CRISP_WEBSITE_ID="a7d49d3f-3bdb-43b6-a2f7-63bdcf456702";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})()
+} 
+
+if(document.config.name === 'wipzard'){
+    window.$crisp=[];window.CRISP_WEBSITE_ID="ba45b122-e656-411b-92d8-ff992b52698e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})()
+}
 
 document.getElementById('brandname').innerHTML = document.config.name.replace('proxydns', 'ProxyDNS')
 
@@ -445,6 +460,7 @@ var mapLinesToGreen = function () {
 
 if (has('activate')) {
     showParts(['ipinfo'])
+    hideParts(['main'])
     if (['done', 'now'].indexOf(document.config.params['activate']) == -1) {
         showParts(['main'])
         hideParts(['worldmap'])
