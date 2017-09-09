@@ -244,3 +244,13 @@ p img {
     min-width: 120px;
     text-align: left;
 }
+
+.firstloading {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+.firstloading img {
+  margin-top: 40%;
+  float: center;
+}

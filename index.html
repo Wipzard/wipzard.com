@@ -6,20 +6,17 @@
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/jkgoidcneenbbjbncgegpledfdolbodh">
 
   <meta name="description" content="Feel the freedom, no registration required.">
-  <meta name="author" content="carlos@carlosguerrero.com">
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Geo-unblocked Internet" />
+  <meta property="og:title" content="Remove all geo-restrictions" />
   <meta property="og:description" content="Feel the freedom, no login/registration required." />
-  <meta property="og:image" content="/images/og.png" />
+  <meta property="og:image" content="/images/og.jpg" />
   <meta property="og:site_name" content="Feel the freedom" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <link rel="icon" type="image/ico" href="https://awsmedia.s3.amazonaws.com/favicon.ico" />
 
-  <link href="/css/font-awesome.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Concert+One|Titillium+Web:400,700,900" rel="stylesheet" />
-  <link href="/css/main.css?v=T" rel="stylesheet" />
-  <link href="/css/local.css?v=AD" rel="stylesheet" />
+  <!-- <link href="/css/font-awesome.css" rel="stylesheet" /> -->
+
   <script type="text/javascript">
   </script>
 
@@ -81,6 +78,9 @@
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKJ2G9Z" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 
+  <div id="firstloading" class="firstloading" >
+    <img src="images/91.gif" />
+  </div>
 
   <header>
 
@@ -267,12 +267,12 @@
 
         <div class="row">
           <div class="col-xs-12">
-            <div class="hero-cta">
+            <div style="margin-top: -60px;" class="hero-cta">
 
               <h1 id="welcometext">
-
+                Watch</br>
                 <b id="servicename">NETFLIX</b></br>
-                from anywhere in the World
+                from <u id="userlocation">anywhere in the World</u>
               </h1>
 
               <!-- <h2 id="slogan"> -->
@@ -447,7 +447,7 @@
       <div class="container" id="bottomstatuscontainer"></div>
     </div>
   </div>
-  <footer>
+  <footer id="firstfooter" style="display:none;">
     <nav>
       <div class="container">
         <div class="row">
@@ -471,20 +471,23 @@
   </footer>
 
   <!-- <script src="/js/underscore-min.js"></script> -->
-
+  <link href="https://fonts.googleapis.com/css?family=Concert+One|Titillium+Web:400,700,900" rel="stylesheet" />
+  
+  <link href="/css/main.css?v=T" rel="stylesheet" />
+  <link href="/css/local.css?v=AF" rel="stylesheet" />
   <script type="text/javascript" src="/js/d3.v3.min.js"></script>
   <script src="/js/topojson.v1.min.js"></script>
-  <script src="/js/dijkstra.js"></script>
+  <!-- <script src="/js/dijkstra.js"></script> -->
 
   <script type="text/javascript" src="/js/d3.geo.projection.v0.min.js"></script>
   <script type="text/javascript" src="/js/worldanimation.js"></script>
   <script type="text/javascript" src="/js/fetch.js"></script>
-
-  <script type="text/javascript" src="/js/showdown.min.js"></script>
   <script type="text/javascript" src="/js/js.cookie.js"></script>
   <script type="text/javascript" src="/js/config.js?v=T"></script>
   <script type="text/javascript" src="/js/twitterFetcher.js?v=U"></script>
-  <script type="text/javascript" src="/js/main.js?v=AD"></script>
+  <script type="text/javascript" src="/js/main.js?v=AE"></script>
+
+  <script type="text/javascript" src="/js/showdown.min.js"></script>
   <script type="text/javascript" src="/js/gtm.js?v=T"></script>
 
 </body>

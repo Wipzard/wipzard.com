@@ -1,5 +1,29 @@
 var log = console.log // function () {}
 log('location:', document.location)
+var hideParts = function (parts) {
+    parts.forEach(function (id) {
+        if (document.getElementById(id) !== null) {
+            document.getElementById(id).style.display = 'none'
+        }
+        if (document.getElementById('_' + id) !== null) {
+            document.getElementById('_' + id).style.display = 'none'
+        }
+    })
+}
+var showParts = function (parts) {
+    parts.forEach(function (id) {
+        if (document.getElementById(id) !== null) {
+            document.getElementById(id).style.display = ''
+        }
+        if (document.getElementById('_' + id) !== null) {
+            document.getElementById('_' + id).style.display = ''
+        }
+    })
+}
+hideParts(['firstloading'])
+showParts(['firstfooter'])
+
+
 document.api = 'https://sp4s6v0l6j.execute-api.us-east-1.amazonaws.com/prod/masterapi-prod?'
 var local_color = "black"
 var servers_colors = {
@@ -238,26 +262,8 @@ var bad_check_symbol = ' <i class="blue fa fa-thumbs-down" aria-hidden="true"></
 var normal_symbol = ' <i class="grey fa  fa-cogs" aria-hidden="true"></i> '
 var retry = 0
 
-var showParts = function (parts) {
-    parts.forEach(function (id) {
-        if (document.getElementById(id) !== null) {
-            document.getElementById(id).style.display = ''
-        }
-        if (document.getElementById('_' + id) !== null) {
-            document.getElementById('_' + id).style.display = ''
-        }
-    })
-}
-var hideParts = function (parts) {
-    parts.forEach(function (id) {
-        if (document.getElementById(id) !== null) {
-            document.getElementById(id).style.display = 'none'
-        }
-        if (document.getElementById('_' + id) !== null) {
-            document.getElementById('_' + id).style.display = 'none'
-        }
-    })
-}
+
+
 var showActivationInfo = function () {
     console.log('<showActivationInfo>')
     showParts(['paymentinfocode', 'activationcode', 'activationexpire'])
@@ -688,6 +694,13 @@ if (Object.keys(document.config.params).length == 0) {
     checkIp(Cookies.get('code'))
     hideParts(['ipinfo'])
     showTweets(1)
+    var geoipservice = 'https://freegeoip.net/json/'
+    window.fetch(geoipservice).then(function (response) {
+        return response.json()
+    }).then(function (client) {
+        console.log('client', client)
+        fillFields({userlocation: client.city + ', ' + client.country_name})
+    })
 }
 
 var try_plan = document.config[document.config.name]['plans']['try']
