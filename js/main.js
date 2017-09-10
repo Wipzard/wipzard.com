@@ -687,7 +687,12 @@ if (document.config.params['tx'] != undefined) {
 
 }
 
-
+var ignoreParams = ['netflix']
+ignoreParams.forEach(function(each_ignoreparam){
+    if(document.config.params[each_ignoreparam]){
+        delete document.config.params[each_ignoreparam]
+    }
+})
 
 if (Object.keys(document.config.params).length == 0) {
     showParts(['main', 'setup'])
